@@ -10,6 +10,7 @@ padding:0;
  background-color: 	#F0FFFF;
  font-size: 40px;
  border-bottom: 2px solid red;
+ color: gray;
 }
 
 #heartbeat{
@@ -23,7 +24,6 @@ padding:0;
 }
 
 .content{
- background-color: blue;
  width: 100%
 
 }
@@ -43,7 +43,7 @@ padding:0;
 
 
 .userNameDiv{
-    background-color: green;
+    background-color: #20B2AA;
     width: 100px;
     height: 40px;
     margin-right: 0;
@@ -55,3 +55,26 @@ padding:0;
     width: 55%;
     height: 55%;
 }
+
+.loginPage{
+ background-color: pink;
+ padding: 20px;
+ margin: 15px;
+ border-radius: 20px;
+}
+
+#notLoggedIn{
+    display: flex;
+
+    justify-content:center;
+    color: white;
+}
+.btn {
+    display: flex;
+
+    justify-content:center;
+    background-color: pink;
+    border: pink;
+
+}
+

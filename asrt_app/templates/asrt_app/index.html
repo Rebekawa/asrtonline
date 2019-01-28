@@ -33,11 +33,12 @@
         <div class="userNameDiv">
             <div>Login</div>
             <div>{{ user.username }}</div>
+            <a href="/accounts/logout"><button class="btn">Logout</button></a>
         </div>
         <div class="map">
             <div id="carte"></div>
         </div>
-        
+
 
 
 
@@ -84,7 +85,17 @@
 
 </div>
 {% else %}
-    <h3>You are not logged in</h3>
+
+<div class="loginPage">
+    <h3 id="notLoggedIn">You are not logged in</h3>
+    <div class="btn">
+        <a href="/accounts/login"><button class="btn" id="loginButton">Login</button></a>
+        <a href="/register"><button class="btn" id="registerButton">Register</button></a>
+    </div>
+
+</div>
+
+
 {% endif %}
 
 {% endblock %}
