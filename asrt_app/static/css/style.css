@@ -57,24 +57,26 @@ padding:0;
 }
 
 .loginPage{
- background-color: pink;
+ background-color: #F0FFFF;
  padding: 20px;
- margin: 15px;
+ margin: 15%;
  border-radius: 20px;
+ border: 2px solid red;
 }
 
 #notLoggedIn{
     display: flex;
 
     justify-content:center;
-    color: white;
+    color: grey;
 }
 .btn {
     display: flex;
 
     justify-content:center;
-    background-color: pink;
-    border: pink;
+    background-color: #F0FFFF;
+    border: #F0FFFF;
+
 
 }
 
