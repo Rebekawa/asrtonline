@@ -1,0 +1,57 @@
+body{
+margin:0;
+padding:0;
+}
+
+.header {
+ height: 20%;
+ padding: 30px;
+ margin: 0;
+ background-color: 	#F0FFFF;
+ font-size: 40px;
+ border-bottom: 2px solid red;
+}
+
+#heartbeat{
+    height: 40px;
+    width: 40px;
+    padding: 0 20px;
+}
+
+.container{
+    display: flex;
+}
+
+.content{
+ background-color: blue;
+ width: 100%
+
+}
+
+
+.box {
+
+
+}
+
+.openCases {
+    border-right: 2px solid red;
+    width: 24%;
+    height: auto;
+    padding: 2px 10px;
+}
+
+
+.userNameDiv{
+    background-color: green;
+    width: 100px;
+    height: 40px;
+    margin-right: 0;
+    margin-top: 0;
+
+}
+
+.map{
+    width: 55%;
+    height: 55%;
+}

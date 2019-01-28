@@ -1,28 +1,55 @@
 {% extends 'asrt_app/base.html' %}
 
 {% block content %}
+    <div class="header"> <img id='heartbeat' src="https://www.eckerd.edu/wp-content/uploads/sites/38/2015/11/heartbeat-icon.png">LIFE MONITOR - COMMAND AND CONTROL </div>
 
-    <h1>This is the index page!</h1>
     {% if user.is_authenticated %}
-    <h3>Your name is: {{ user.username }}</h3>
 
 
-    {% for Post in alerts %}
-    <fieldset class="box">
-        <legend class="date">{{ Post.date }}</legend>
-        <span class="event_type">{{ Post.event_type }}</span>
-        <div class="cust_num">{{ Post.cust_num }}</div>
-        <div class="case_stat">{{ Post.case_stat }}</div>
-        <div class="case_num">{{ Post.case_num }}</div>
-    </fieldset>
+    <div class="container">
 
-{% empty %}
+
+    <div class="openCases">
+        <h2>Open Cases</h2>
+{% for Post in alerts %}
+        <fieldset class="box">
+
+            <legend class="date">{{ Post.date }}</legend>
+            <span class="event_type">{{ Post.event_type }}</span>
+            <div class="cust_num">{{ Post.cust_num }}</div>
+            <div class="case_stat">{{ Post.case_stat }}</div>
+            <div class="case_num">{{ Post.case_num }}</div>
+        </fieldset>
+    {% empty %}
     <div class="empty">
         <p>No messages...
             <br>
             Click the '+' button to add a new message</p>
     </div>
 {% endfor %}
+    </div>
+
+    <div class="content">
+        <div class="userNameDiv">
+            <div>Login</div>
+            <div>{{ user.username }}</div>
+        </div>
+        <div class="map">
+            <div id="carte"></div>
+        </div>
+        
+
+
+
+    </div>
+
+
+    </div>
+
+
+
+
+
 
 {#Button + to add a new post #}
 <div class="addDiv">
