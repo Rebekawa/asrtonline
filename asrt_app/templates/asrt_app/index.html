@@ -5,8 +5,7 @@
     <h1>This is the index page!</h1>
     {% if user.is_authenticated %}
     <h3>Your name is: {{ user.username }}</h3>
-    {% else %}
-    <h3>You are not logged in</h3>
+
 
     {% for Post in alerts %}
     <fieldset class="box">
@@ -33,18 +32,17 @@
 </div>
 
 <div id="toAdd">
-    <form action="/accounts/" method="POST">
+    <form action="/" method="POST">
         <fieldset id="addBox">
             <legend class="date">{{ date }}</legend>
-            <span class="title">
-        <input placeholder="title" name="title" required>
-    </span>
-            <div class="text">
-                <textarea placeholder="Your message here" style="width: 750px; height: 100px;" name="message"
-                          required></textarea>
-            </div>
-            <div class="addAuthor">
-                <input placeholder="author" name="author" required>
+            <span class="event_type">
+                <input placeholder="Type of the event" name="event_type" required>
+            </span>
+            <span class="text">
+                <input placeholder="Your Number" name="cust_num" required>
+            </span>
+            <div class="case_stat">
+                <input placeholder="Status" name="case_stat" required>
             </div>
         </fieldset>
         <div id="dropCheck" class="addDiv">
@@ -58,6 +56,8 @@
     </form>
 
 </div>
+{% else %}
+    <h3>You are not logged in</h3>
 {% endif %}
 
 {% endblock %}

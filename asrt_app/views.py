@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Post
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 
 
+@csrf_exempt
 def index(request):
     date = datetime.date.today()
     if request.method == 'POST':
