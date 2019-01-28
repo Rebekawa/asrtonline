@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASRT</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+          crossorigin="anonymous">
+    <link href="{% static './css/style.css' %}"
+    rel="stylesheet" type="text/css">
+    <script src="{% static './js/logic.js' %}"></script>
+    {% block head %} {% endblock %}
+</head>
+<body>
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>
