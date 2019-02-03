@@ -72,3 +72,19 @@
 					}
 				}
 			});
+
+
+var video = document.querySelector("#videoElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+    console.log('hey')
+    navigator.mediaDevices.getUserMedia({video: true})
+  .then(function(stream) {
+    video.srcObject = stream;
+  })
+  .catch(function(err0r) {
+    console.log("Something went wrong!");
+  });
+}
+
+//https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm

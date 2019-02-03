@@ -22,41 +22,41 @@
         </fieldset>
     {% empty %}
     <div class="empty">
-        <p>No messages...
-            <br>
-            Click the '+' button to add a new message</p>
+        <p>No alerts...
+            </p>
     </div>
+
 {% endfor %}
     </div>
 
     <div class="content">
         <div class="dateDiv">{{date}}</div>
         <div class="userNameDiv">
-            <div>Login</div>
+            <div>Welcome</div>
             <div>{{ user.username }}</div>
-            <a href="/accounts/logout"><button class="btn">Logout</button></a>
+            <a href="/accounts/logout">Logout</a>
 
         </div>
         <div class="map">
             <div id="carte"></div>
         </div>
+        <div id="container">
+    <video autoplay="true" id="videoElement">
 
-    </div>
-
-
-    </div>
-
-
-
-
-
-
-{#Button + to add a new post #}
-<div class="addDiv">
-
-        <button id="addButton"><i class="fas fa-plus"></i></button>
-
+    </video>
 </div>
+
+    </div>
+
+
+    </div>
+
+
+
+
+
+
+
 
 <div id="toAdd">
     <form action="/" method="POST">

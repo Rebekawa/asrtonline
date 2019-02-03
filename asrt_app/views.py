@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login
 from .models import Post
 from django.views.decorators.csrf import csrf_exempt
 import datetime
+from django.contrib.auth import logout
+
 
 
 @csrf_exempt
@@ -21,6 +23,8 @@ def index(request):
     posts = Post.objects.all()
     context['alerts'] = posts
     context['date'] = date
+    #if request.user.is_authenticated():
+       # call the camera function
     print(context)
     return render(request, 'asrt_app/index.html', context)
 
@@ -42,3 +46,9 @@ def register(request):
     context = {'form': form}
 
     return render(request, 'registration/register.html', context)
+
+
+def logout_form(request):
+    logout(request)
+    return redirect('index')
+
