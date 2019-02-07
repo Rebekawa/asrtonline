@@ -28,7 +28,7 @@ body{
 
 .content{
  width: 100%;
- height: 100%;
+ height: auto;
  position: absolute;
  display: inline-block;
 
@@ -137,14 +137,15 @@ input[type=submit]:hover {
 
 
 #container {
-    margin: 0px auto;
-    width: 500px;
-    height: 375px;
-    border: 10px #333 solid;
+        right: 27%;
+margin: 0px auto;
+    width: 400px;
+    height: 275px;
+    border: 5px #333 solid;
 }
 #videoElement {
-    width: 500px;
-    height: 375px;
+    width: 400px;
+    height: 275px;
     background-color: #666;
 }
 

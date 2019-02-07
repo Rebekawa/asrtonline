@@ -40,49 +40,26 @@
         <div class="map">
             <div id="carte"></div>
         </div>
+
         <div id="container">
-    <video autoplay="true" id="videoElement">
+            <video autoplay="true" id="videoElement">
 
-    </video>
-</div>
-
-    </div>
-
-
-    </div>
-
-
-
-
-
-
-
-
-<div id="toAdd">
-    <form action="/" method="POST">
-        <fieldset id="addBox">
-            <legend class="date">{{ date }}</legend>
-            <span class="event_type">
-                <input placeholder="Type of the event" name="event_type" required>
-            </span>
-            <span class="text">
-                <input placeholder="Your Number" name="cust_num" required>
-            </span>
-            <div class="case_stat">
-                <input placeholder="Status" name="case_stat" required>
-            </div>
-        </fieldset>
-        <div id="dropCheck" class="addDiv">
-            <button type="submit" value="submit" id="check">
-                <i class="fas fa-check"></i>
-            </button>
-            <button type='button' id="drop" style="background: red;">
-                <i class="fas fa-times"></i>
-            </button>
+            </video>
         </div>
-    </form>
 
-</div>
+        <h1>Audio</h1>
+
+        <button id="startRecordingButton">Start recording</button>
+        <button id="stopRecordingButton">Stop recording</button>
+        <button id="playButton">Play</button>
+        <button id="downloadButton">Download</button>
+
+
+    </div>
+
+
+    </div>
+
 {% else %}
 
 <div class="loginPage">
