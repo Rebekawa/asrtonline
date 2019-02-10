@@ -1,4 +1,38 @@
 // Vue
+
+window.setInterval(function () {
+    try {
+
+        $.ajax({
+            url: 'api/get',
+            method: 'Get',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var data = JSON.parse(data)
+                for (var i = 0 ; i<data.length; i++){
+                   // var newData = $('<fieldset/>');
+                   // newData.addClass('.box')
+                    //$( ".openCases" ).append(newData);
+                   // newData.append(data[i].fields)
+                }
+                //$( ".box" ).remove();
+
+             }
+
+            })
+
+        }
+
+    catch{
+        alert("no connection to server!");
+    }
+
+}, 1000);
+
+
+
+
 			var view = new ol.View({
 				center: [0, 0],
 				zoom: 2,
@@ -235,9 +269,14 @@ var startRecordingButton = document.getElementById("startRecordingButton");
 
 
 function showDescription() {
-    $( ".description" ).remove();
-    var description = $('<div/>')
-    description.addClass('description')
-    $('.desContainer').prepend(description)
+    //$( ".description" ).remove();
+    //var description = $('<div/>')
+    //description.addClass('description')
+    //$('.desContainer').prepend(description)
+    document.getElementsByClassName("description")[0].style.display = "block";
+};
 
-}
+$(document).ready(function(){
+    console.log('change background');
+    $( "fieldset:contains(doorbell)" ).css( "background-color", "red" );
+});

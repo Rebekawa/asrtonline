@@ -11,14 +11,17 @@
 
     <div class="openCases">
         <h2>Open Cases</h2>
+
         {% for Post in alerts %}
 
-        <fieldset class="box" onclick="showDescription()">
+        <fieldset class="box" onclick="showDescription()" onload="changeBackground()">
             <legend class="date">{{ Post.date }}</legend>
             <span class="event_type">{{ Post.event_type }}</span>
             <div class="cust_num">{{ Post.cust_num }}</div>
             <div class="case_stat">{{ Post.case_stat }}</div>
             <div class="case_num">{{ Post.case_num }}</div>
+            <div class="address">{{ Post.address }}</div>
+
         </fieldset>
 
 
@@ -60,6 +63,9 @@
         <div class="caseDescription">
             <div id="caseTitle">Case Description</div>
             <div class="desContainer">
+                <div class="description">
+
+                </div>
 
             </div>
         </div>

@@ -59,7 +59,6 @@ fieldset:first-child{
 }
 
 .container h2 {
-    position: sticky;
     background-color: white;
 }
 
@@ -191,4 +190,9 @@ input[type=submit]:hover {
     font-size: 25px;
     font-weight: bold;
     color: grey;
+}
+
+.description{
+
+    display: none;
 }
