@@ -123,8 +123,6 @@ if (navigator.mediaDevices.getUserMedia) {
 
 //micro
 
-//document.getElementById("check").addEventListener("click", displayDate);
-
 var startRecordingButton = document.getElementById("startRecordingButton");
         var stopRecordingButton = document.getElementById("stopRecordingButton");
         var playButton = document.getElementById("playButton");
@@ -175,7 +173,7 @@ var startRecordingButton = document.getElementById("startRecordingButton");
                             console.error(e);
                         });
         });
-        startRecordingButton.addEventListener("click", setTimeout( function () {
+        stopRecordingButton.addEventListener("click", function () {
             // stop recording
             recorder.disconnect(context.destination);
             mediaStream.disconnect(recorder);
@@ -214,7 +212,7 @@ var startRecordingButton = document.getElementById("startRecordingButton");
             }
             // our final blob
             blob = new Blob([view], { type: 'audio/wav' });
-        }, 5000));
+        });
         playButton.addEventListener("click", function () {
             if (blob == null) {
                 return;
@@ -263,7 +261,6 @@ var startRecordingButton = document.getElementById("startRecordingButton");
             }
         }
 
-
 //https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm
 
 
@@ -277,6 +274,11 @@ function showDescription() {
 };
 
 $(document).ready(function(){
-    console.log('change background');
-    $( "fieldset:contains(doorbell)" ).css( "background-color", "red" );
+    $( "fieldset:contains(smoke_detector)" ).css( "background-color", "red" );
+    $( "fieldset:contains(doorbell)" ).css( "background-color", "#00FFFF" );
+    $( "fieldset:contains(glass_break)" ).css( "background-color", "red" );
+    $( "fieldset:contains(microwave)" ).css( "background-color", "#00FFFF" );
+    $( "fieldset:contains(emergency_broadcast_system')" ).css( "background-color", "red" );
+    $( "fieldset:contains(baby_cry)" ).css( "background-color", "orange" );
+    $( "fieldset:contains(dog_barking)" ).css( "background-color", "orange" );
 });
