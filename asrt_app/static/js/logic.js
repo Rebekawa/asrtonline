@@ -1,36 +1,4 @@
 // Vue
-
-/**window.setInterval(function () {
-    try {
-
-        $.ajax({
-            url: '/api',
-            method: 'Get',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-
-                if (data === "doorbell") {
-                    var doorbell = $('<div/>');
-                    doorbell.addClass('doorbelldiv');
-                    $('body').prepend(doorbell);
-                    console.log('working');
-
-                }
-
-            }
-
-        })
-    }
-    catch{
-        alert("no connection to server!");
-    }
-
-}, 1000000000000000);**/
-
-
-
-
 			var view = new ol.View({
 				center: [0, 0],
 				zoom: 2,
@@ -263,3 +231,13 @@ var startRecordingButton = document.getElementById("startRecordingButton");
 
 
 //https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm
+
+
+
+function showDescription() {
+    $( ".description" ).remove();
+    var description = $('<div/>')
+    description.addClass('description')
+    $('.desContainer').prepend(description)
+
+}

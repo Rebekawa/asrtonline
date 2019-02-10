@@ -7,6 +7,7 @@ from .models import Post
 from django.views.decorators.csrf import csrf_exempt
 import datetime
 from django.contrib.auth import logout
+import socket
 
 
 
@@ -17,8 +18,6 @@ def index(request):
     posts = Post.objects.all()
     context['alerts'] = posts
     context['date'] = date
-    #if request.user.is_authenticated():
-       # call the camera function
     return render(request, 'asrt_app/index.html', context)
 
 
@@ -49,8 +48,8 @@ def logout_form(request):
 @csrf_exempt
 def api_push(request):
     event_type = request.META.get("HTTP_TAG")
-    cust_num = 0
-    case_stat = "yoav"
+    cust_num = socket.gethostbyname(socket.gethostname())
+    case_stat = "open"
     case_num = request.POST.get('case_num')
     print(event_type, cust_num, case_stat, case_num)
     model = Post(event_type=event_type, cust_num=cust_num, case_stat=case_stat, case_num=case_num)

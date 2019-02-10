@@ -11,20 +11,22 @@
 
     <div class="openCases">
         <h2>Open Cases</h2>
-{% for Post in alerts %}
-        <fieldset class="box">
+        {% for Post in alerts %}
 
+        <fieldset class="box" onclick="showDescription()">
             <legend class="date">{{ Post.date }}</legend>
             <span class="event_type">{{ Post.event_type }}</span>
             <div class="cust_num">{{ Post.cust_num }}</div>
             <div class="case_stat">{{ Post.case_stat }}</div>
             <div class="case_num">{{ Post.case_num }}</div>
         </fieldset>
+
+
     {% empty %}
-    <div class="empty">
-        <p>No alerts...
+        <div class="empty">
+            <p>No alerts...
             </p>
-    </div>
+        </div>
 
 {% endfor %}
     </div>
@@ -41,6 +43,7 @@
             <div id="carte"></div>
         </div>
 
+
         <div id="container">
             <video autoplay="true" id="videoElement">
 
@@ -53,6 +56,15 @@
         <button id="stopRecordingButton">Stop recording</button>
         <button id="playButton">Play</button>
         <button id="downloadButton">Download</button>
+
+        <div class="caseDescription">
+            <div id="caseTitle">Case Description</div>
+            <div class="desContainer">
+
+            </div>
+        </div>
+
+
 
 
     </div>
