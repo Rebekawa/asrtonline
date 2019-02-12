@@ -11,7 +11,7 @@ from faker import Faker
 from django.forms.models import model_to_dict
 from django.core import serializers
 
-fake = Faker('he_IL')
+fake = Faker()
 fake2 = Faker()
 
 

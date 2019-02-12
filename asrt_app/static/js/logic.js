@@ -265,12 +265,18 @@ var startRecordingButton = document.getElementById("startRecordingButton");
 
 
 
-function showDescription() {
-    //$( ".description" ).remove();
-    //var description = $('<div/>')
-    //description.addClass('description')
-    //$('.desContainer').prepend(description)
-    document.getElementsByClassName("description")[0].style.display = "block";
+function showDescription(event) {
+    var arr = event.childNodes
+    console.log(event.childNodes)
+    $('.desContainer').text(event.childNodes[3].textContent + ' located in ' + event.childNodes[11].textContent)
+    $('.caseInfos').html('<br/>' + 'Event type - ' + event.childNodes[3].textContent
+    + '<br/>' + 'Date & Time - ' + event.childNodes[1].textContent
+    + '<br/>' + 'Cust num - ' + event.childNodes[5].textContent
+    + '<br/>' + 'Case status - ' + event.childNodes[7].textContent
+    + '<br/>' + 'Case number - ' + event.childNodes[9].textContent)
+
+
+
 };
 
 $(document).ready(function(){

@@ -174,11 +174,12 @@ input[type=submit]:hover {
 }
 
 .desContainer {
-    margin-top: 35px;
+
     height: 150px;
     width: 400px;
     position: absolute;
     left: 40%;
+    top: 80%;
     margin-bottom: 0px;
     border: 2px solid red
 }
@@ -186,13 +187,12 @@ input[type=submit]:hover {
 #caseTitle {
     position: absolute;
     left: 40%;
-    margin:5px 0;
+    top: 75%;
     font-size: 25px;
     font-weight: bold;
     color: grey;
 }
 
-.description{
-
-    display: none;
+.caseInfos{
+    margin: 20px;
 }

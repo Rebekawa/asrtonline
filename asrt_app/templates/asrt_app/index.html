@@ -14,11 +14,13 @@
 
         {% for Post in alerts %}
 
-        <fieldset class="box" onclick="showDescription()">
-            <legend class="date">{{ Post.date }}</legend>
+        <fieldset value = {{ Post.case_num }} class="box" onclick="showDescription(this)">
+            <legend class="date" >{{ Post.date }}</legend>
             <span class="event_type">{{ Post.event_type }}</span>
-
-
+            <div class="cust_num">{{ Post.cust_num }}</div>
+            <div class="case_stat">{{ Post.case_stat }}</div>
+            <div class="case_num">{{ Post.case_num }}</div>
+            <div class="address">{{ Post.address }}</div>
         </fieldset>
 
 
@@ -58,17 +60,13 @@
         <button id="downloadButton">Download</button>
 
         <div class="caseDescription">
+
+            <span class="caseInfos"></span>
+
             <div id="caseTitle">Case Description</div>
-            <div class="desContainer">
-                <div class="description">
-                    <div class="cust_num">{{ Post.cust_num }}</div>
-                    <div class="case_stat">{{ Post.case_stat }}</div>
-                    <div class="case_num">{{ Post.case_num }}</div>
-                    <div class="address">{{ Post.address }}</div>
 
-                </div>
+            <div class="desContainer"></div>
 
-            </div>
         </div>
 
 
