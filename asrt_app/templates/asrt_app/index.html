@@ -12,6 +12,11 @@
     <div class="openCases">
         <h2>Open Cases</h2>
 
+        <button id="high" class='filterButtons' onclick="showHigh()">H</button>
+        <button id="medium" class='filterButtons' onclick="showMedium()">M</button>
+        <button id="low" class='filterButtons' onclick="showLow()">L</button>
+        <button class='filterButtons' onclick="showAll()">All</button>
+
         {% for Post in alerts %}
 
         <fieldset value = {{ Post.case_num }} class="box" onclick="showDescription(this)">

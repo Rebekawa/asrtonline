@@ -43,6 +43,24 @@ body{
     display: inline-block;
     overflow: auto;
 }
+.filterButtons{
+    height: 40px;
+    width: 40px;
+    margin: 2px;
+    border-radius: 10px;
+}
+
+#high{
+    background-color: red;
+}
+
+#medium{
+    background-color: orange;
+}
+
+#low{
+    background-color: #00FFFF;
+}
 
 .cases{
     width: 24%;
@@ -175,13 +193,14 @@ input[type=submit]:hover {
 
 .desContainer {
 
-    height: 150px;
+    height: 140px;
     width: 400px;
     position: absolute;
     left: 40%;
     top: 80%;
     margin-bottom: 0px;
-    border: 2px solid red
+    border: 2px solid red;
+    padding: 7px;
 }
 
 #caseTitle {
@@ -195,4 +214,8 @@ input[type=submit]:hover {
 
 .caseInfos{
     margin: 20px;
+}
+
+.box .cust_num, .case_stat, .case_num, .address{
+    display: none;
 }

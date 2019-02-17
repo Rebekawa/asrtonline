@@ -17,11 +17,9 @@ fake2 = Faker()
 
 @csrf_exempt
 def index(request):
-    date = datetime.date.today()
     context = {}
-    posts = Post.objects.all()
+    posts = Post.objects.order_by('-date')
     context['alerts'] = posts
-    context['date'] = date
     return render(request, 'asrt_app/index.html', context)
 
 
@@ -57,18 +55,14 @@ def api_push(request):
     case_num = request.POST.get('case_num')
     address = fake.address()
     print(event_type, cust_num, case_stat, case_num)
-    model = Post(event_type=event_type, cust_num=cust_num, case_stat=case_stat, case_num=case_num, address=address)
+    model = Post(event_type=event_type, cust_num=cust_num, case_stat=case_stat, case_num=case_num,date=datetime.date.today(), address=address)
     model.save()
     return json.dumps("success!")
 
 
 @csrf_exempt
 def api_get(request):
-    date = datetime.date.today()
-    context = {}
     posts = Post.objects.all()
     data = serializers.serialize('json', posts)
-    context['alerts'] = posts
-    context['date'] = date
     return JsonResponse(data, safe=False)
 

@@ -1,36 +1,103 @@
-// Vue
+$( document ).ready(function() {
+       setInterval(function(){
+            $.getJSON('/api/get',
+                    function (data) {
+                        console.log(data)
+                        var json = JSON.parse(data)
+                        var tr;
+                         $('.box').html("");
+                         $( ".box" ).remove();
+                        for (var i = 0; i < json.length; i++) {
+                            for (var j = json.length; j > i; j--){
 
-window.setInterval(function () {
-    try {
+                            json_data = json[i]["fields"]
+                            tr = $('<fieldset/>');
+                            console.log(json[i])
+                            tr.addClass('box');
+                            tr.append("<legend class='date'>" + json_data.date + "</legend>");
+                            tr.append("<span class='event_type'>" + json_data.event_type + "</span>");
+                            tr.append("<div class='cust_num'>" + json_data.cust_num + "</div>");
+                            tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
+                            tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
+                            tr.append("<div class='address'>" + json_data.address + "</div>");
+                             $('.openCases').append(tr);
+                             }
 
-        $.ajax({
-            url: 'api/get',
-            method: 'Get',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var data = JSON.parse(data)
-                for (var i = 0 ; i<data.length; i++){
-                   // var newData = $('<fieldset/>');
-                   // newData.addClass('.box')
-                    //$( ".openCases" ).append(newData);
-                   // newData.append(data[i].fields)
-                }
-                //$( ".box" ).remove();
-
-             }
-
-            })
-
-        }
-
-    catch{
-        alert("no connection to server!");
-    }
-
-}, 1000);
+                        }
+                        createElements()
+                    });
+       },6000);
+    });
 
 
+function createElements(){
+
+    $( "fieldset:contains(smoke_detector)" ).css( "background-color", "red" );
+    $( "fieldset:contains(doorbell)" ).css( "background-color", "#00FFFF" );
+    $( "fieldset:contains(glass_break)" ).css( "background-color", "red" );
+    $( "fieldset:contains(microwave)" ).css( "background-color", "#00FFFF" );
+    $( "fieldset:contains(emergency_broadcast_system')" ).css( "background-color", "red" );
+    $( "fieldset:contains(baby_cry)" ).css( "background-color", "orange" );
+    $( "fieldset:contains(dog_barking)" ).css( "background-color", "orange" );
+    $("fieldset").click(showDescription);
+
+}
+
+
+function showDescription(event) {
+    var arr = $(this).find('*')
+    $('.desContainer').text(arr[1].textContent + ' located in ' + arr[5].textContent)
+    $('.caseInfos').html('<br/>' + 'Event type - ' + arr[1].textContent
+    + '<br/>' + 'Date & Time - ' + arr[0].textContent
+    + '<br/>' + 'Cust num - ' + arr[2].textContent
+    + '<br/>' + 'Case status - ' + arr[3].textContent
+    + '<br/>' + 'Case number - ' + arr[4].textContent)
+};
+
+
+$(document).ready(function(){
+    createElements()
+
+});
+
+
+function showHigh(){
+    console.log('High');
+    $( "fieldset:contains(smoke_detector)" ).css( "display", "block" );
+    $( "fieldset:contains(glass_break)" ).css( "display", "block" );
+    $( "fieldset:contains(emergency_broadcast_system')" ).css( "display", "block" );
+
+    $( "fieldset:contains(doorbell)" ).css( "display", "none" );
+    $( "fieldset:contains(microwave)" ).css( "display", "none" );
+    $( "fieldset:contains(baby_cry)" ).css( "display", "none" );
+    $( "fieldset:contains(dog_barking)" ).css( "display", "none" );
+}
+
+function showMedium(){
+    console.log('Medium');
+    $( "fieldset:contains(baby_cry)" ).css( "display", "block" );
+    $( "fieldset:contains(dog_barking)" ).css( "display", "block" );
+
+    $( "fieldset:contains(smoke_detector)" ).css( "display", "none" );
+    $( "fieldset:contains(doorbell)" ).css( "display", "none" );
+    $( "fieldset:contains(glass_break)" ).css( "display", "none" );
+    $( "fieldset:contains(microwave)" ).css( "display", "none" );
+    $( "fieldset:contains(emergency_broadcast_system')" ).css( "display", "none" );
+}
+
+function showLow(){
+    console.log('Low');
+    $( "fieldset:contains(doorbell)" ).css( "display", "block" );
+    $( "fieldset:contains(microwave)" ).css( "display", "block" );
+
+    $( "fieldset:contains(baby_cry)" ).css( "display", "none" );
+    $( "fieldset:contains(dog_barking)" ).css( "display", "none" );
+}
+
+function showAll(){
+
+    $( "fieldset" ).css( "display", "block" );
+}
 
 
 			var view = new ol.View({
@@ -107,6 +174,7 @@ window.setInterval(function () {
 				}
 			});
 
+//video
 
 var video = document.querySelector("#videoElement");
 
@@ -264,27 +332,3 @@ var startRecordingButton = document.getElementById("startRecordingButton");
 //https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm
 
 
-
-function showDescription(event) {
-    var arr = event.childNodes
-    console.log(event.childNodes)
-    $('.desContainer').text(event.childNodes[3].textContent + ' located in ' + event.childNodes[11].textContent)
-    $('.caseInfos').html('<br/>' + 'Event type - ' + event.childNodes[3].textContent
-    + '<br/>' + 'Date & Time - ' + event.childNodes[1].textContent
-    + '<br/>' + 'Cust num - ' + event.childNodes[5].textContent
-    + '<br/>' + 'Case status - ' + event.childNodes[7].textContent
-    + '<br/>' + 'Case number - ' + event.childNodes[9].textContent)
-
-
-
-};
-
-$(document).ready(function(){
-    $( "fieldset:contains(smoke_detector)" ).css( "background-color", "red" );
-    $( "fieldset:contains(doorbell)" ).css( "background-color", "#00FFFF" );
-    $( "fieldset:contains(glass_break)" ).css( "background-color", "red" );
-    $( "fieldset:contains(microwave)" ).css( "background-color", "#00FFFF" );
-    $( "fieldset:contains(emergency_broadcast_system')" ).css( "background-color", "red" );
-    $( "fieldset:contains(baby_cry)" ).css( "background-color", "orange" );
-    $( "fieldset:contains(dog_barking)" ).css( "background-color", "orange" );
-});
