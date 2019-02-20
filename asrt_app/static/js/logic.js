@@ -3,12 +3,13 @@ $( document ).ready(function() {
             $.getJSON('/api/get',
                     function (data) {
                         console.log(data)
-                        var json = JSON.parse(data)
+                        var json = JSON.parse(data).reverse()
                         var tr;
                          $('.box').html("");
                          $( ".box" ).remove();
+                         ;
                         for (var i = 0; i < json.length; i++) {
-                            for (var j = json.length; j > i; j--){
+
 
                             json_data = json[i]["fields"]
                             tr = $('<fieldset/>');
@@ -21,12 +22,12 @@ $( document ).ready(function() {
                             tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                             tr.append("<div class='address'>" + json_data.address + "</div>");
                              $('.openCases').append(tr);
-                             }
+
 
                         }
                         createElements()
                     });
-       },6000);
+       },3000);
     });
 
 
