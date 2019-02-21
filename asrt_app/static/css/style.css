@@ -216,6 +216,6 @@ input[type=submit]:hover {
     margin: 20px;
 }
 
-.box .cust_num, .case_stat, .case_num, .address{
+.box .cust_num, .case_stat, .case_num, .address, .coordinates{
     display: none;
 }

@@ -20,6 +20,7 @@ $(document).ready(function () {
                     tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
+                    tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
                     $('.openCases').append(tr);
 
 
@@ -41,6 +42,7 @@ function createElements() {
     $("fieldset:contains(baby_cry)").css("background-color", "orange");
     $("fieldset:contains(dog_barking)").css("background-color", "orange");
     $("fieldset").click(showDescription);
+    $("fieldset").click(changeMapFocus);
 
 }
 
@@ -55,6 +57,32 @@ function showDescription(event) {
         + '<br/>' + 'Case number - ' + arr[4].textContent)
 };
 
+function changeMapFocus(event){
+    let coordinates = JSON.parse(event.target.children[6].innerHTML);
+    alert(typeof(coordinates)+"  ----  "+coordinates);
+    var precision = geolocation.getAccuracy();
+    $("#precision").html(precision);
+
+    var newPosition = ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857');
+    
+    ObjPosition.setGeometry(newPosition ? new ol.geom.Point(newPosition) : null);
+
+    var sourceVecteur = new ol.source.Vector({
+        features: [ObjPosition]
+    });
+    
+    // Zoom sur l'emprise du vecteur
+    sourceVecteur.once('change', function (evt) {
+        // On vérifie que la source du vecteur sont chargés
+        if (sourceVecteur.getState() === 'ready') {
+            // On vérifie que le veteur contient au moins un objet géographique
+            if (sourceVecteur.getFeatures().length > 0) {
+                // On adapte la vue de la carte à l'emprise du vecteur
+                map.getView().fit(sourceVecteur.getExtent(), map.getSize());
+            }
+        }
+    });
+}
 
 $(document).ready(function () {
     createElements()
@@ -138,17 +166,24 @@ var geolocation = new ol.Geolocation({
     // Important : Projection de la carte
     projection: view.getProjection()
 });
+
+
+
+
+
+
 // On scrute les changements des propriétés
 geolocation.on('change', function (evt) {
     var precision = geolocation.getAccuracy();
     $("#precision").html(precision);
-    var position = geolocation.getPosition();
+    let position = geolocation.getPosition();
     // On transforme la projection des coordonnées
-    var newPosition = ol.proj.transform(position, 'EPSG:3857', 'EPSG:4326');
-    $("#latitude").html(newPosition[1]);
-    $("#longitude").html(newPosition[0]);
+    var newPosition = ol.proj.transform([34.780572, 32.080883], 'EPSG:4326', 'EPSG:3857');
+    console.log("----------this is new position: "+newPosition);
+    $("#latitude").html(40.758896); // 40.758896
+    $("#longitude").html(-73.985130); // -73.985130
     // Attribution de la géométrie de ObjPosition avec les coordonnées de la position
-    ObjPosition.setGeometry(position ? new ol.geom.Point(position) : null);
+    ObjPosition.setGeometry(newPosition ? new ol.geom.Point(newPosition) : null);
 });
 // On alerte si une erreur est trouvée
 geolocation.on('error', function (erreur) {
@@ -184,8 +219,8 @@ if (navigator.mediaDevices.getUserMedia) {
         .then(function (stream) {
             video.srcObject = stream;
         })
-        .catch(function (err0r) {
-            console.log("Something went wrong!");
+        .catch(function (error) {
+            console.log("Something went wrong: "+error);
         });
 }
 
