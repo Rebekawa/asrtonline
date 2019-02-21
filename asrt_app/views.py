@@ -15,6 +15,44 @@ from random import randint
 fake = Faker()
 fake2 = Faker()
 
+locationsArr = [
+    {
+        "address": "Times Square, Manhattan, NY, USA",
+        "coordinates": [-73.985130, 40.758896]
+    },
+    {
+        "address": "1 Mission Way, Tenafly, NJ 07670",
+        "coordinates": [-73.961130, 40.909080]
+    },
+    {
+        "address": "1251 Ave of the Americas, New York City, NY 10020",
+        "coordinates": [-73.981640, 40.760080]
+    },
+    {
+        "address": "555 Universal Hollywood Dr, Universal City, CA 91608, USA",
+        "coordinates": [-118.358398, 34.137039]
+    },
+    {
+        "address": "The Eiffel Tower, Paris, France",
+        "coordinates": [2.294694, 48.858093]
+    },
+    {
+        "address": "Oudezijds Achterburgwal 60h, 1012 DP Amsterdam, Holland",
+        "coordinates": [4.898950, 52.373680]
+    },
+    {
+        "address": "Leipziger Pl. 9, 10117 Berlin, Germany",
+        "coordinates": [13.379220, 52.508880]
+    },
+    {
+        "address": "6 place brugmann 1050, brussels, Belgium",
+        "coordinates": [4.354370, 50.817840]
+    },
+    {
+        "address": "41 Rue Des Frères Lion 31000 Toulouse France",
+        "coordinates": [1.453150, 43.600190]
+    },
+]
 
 @csrf_exempt
 def index(request):
@@ -55,49 +93,10 @@ def api_push(request):
     cust_num = fake2.ipv4()
     case_stat = "open"
     case_num = request.POST.get('case_num')
-    locationsArr = [
-    {
-        "address":"Times Square, Manhattan, NY, USA",
-        "coordinates":[-73.985130, 40.758896]
-    },
-    {
-        "address":"1 Mission Way, Tenafly, NJ 07670",
-        "coordinates":[-73.961130, 40.909080]
-    },
-    {
-        "address":"1251 Ave of the Americas, New York City, NY 10020",
-        "coordinates":[-73.981640, 40.760080]
-    },
-    {
-        "address": "555 Universal Hollywood Dr, Universal City, CA 91608, USA",
-        "coordinates":[-118.358398, 34.137039]
-    },
-    {
-        "address":"The Eiffel Tower, Paris, France",
-        "coordinates":[2.294694, 48.858093]
-    },
-    {
-        "address": "Oudezijds Achterburgwal 60h, 1012 DP Amsterdam, Holland",
-        "coordinates":[4.898950, 52.373680]
-    },
-    {
-        "address": "Leipziger Pl. 9, 10117 Berlin, Germany",
-        "coordinates":[13.379220, 52.508880]
-    },
-    {
-        "address":"6 place brugmann 1050, brussels, Belgium",
-        "coordinates":[4.354370, 50.817840]
-    },
-    {
-        "address": "41 Rue Des Frères Lion 31000 Toulouse France",
-        "coordinates":[1.453150, 43.600190]
-    },
-    ]
-    location = locationsArr[randint(0, len(locationsArr))]
-    print(location)
-    address = location.address
-    coordinates = json.dumps(location.coordinates)
-    print(event_type, cust_num, case_stat, case_num)
+    location = locationsArr[randint(0, len(locationsArr)-1)]
+    address = location['address']
+    coordinates = json.dumps(location['coordinates'])
+    print(event_type, cust_num, case_stat, case_num, location['address'])
     model = Post(event_type=event_type, cust_num=cust_num, case_stat=case_stat, case_num=case_num,date=datetime.date.today(), address=address, coordinates=coordinates)
     model.save()
     return json.dumps("success!")
