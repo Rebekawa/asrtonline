@@ -1,5 +1,10 @@
 $(document).ready(function () {
-    setInterval(function () {
+
+    addNewData();
+});
+
+function addNewData() {
+        window.addData = setInterval(function() {
         $.getJSON('/api/get',
             function (data) {
                 console.log(data)
@@ -28,7 +33,7 @@ $(document).ready(function () {
                 createElements()
             });
     }, 3000);
-});
+}
 
 
 
@@ -94,12 +99,60 @@ function showHigh() {
     console.log('High');
     $("fieldset:contains(smoke_detector)").css("display", "block");
     $("fieldset:contains(glass_break)").css("display", "block");
-    $("fieldset:contains(emergency_broadcast_system')").css("display", "block");
+    $("fieldset:contains(emergency_broadcast_system)").css("display", "block");
 
     $("fieldset:contains(doorbell)").css("display", "none");
     $("fieldset:contains(microwave)").css("display", "none");
     $("fieldset:contains(baby_cry)").css("display", "none");
     $("fieldset:contains(dog_barking)").css("display", "none");
+
+
+
+    clearInterval(window.addData)
+    clearInterval(window.addMedium)
+    clearInterval(window.addLow)
+
+    window.addHigh = setInterval(function () {
+        $.getJSON('/api/get',
+            function (data) {
+                console.log(data)
+                var json = JSON.parse(data).reverse()
+                var tr;
+
+                $('.box').html("");
+                $(".box").remove();
+
+
+                ;
+                for (var i = 0; i < json.length; i++) {
+
+                    json_data = json[i]["fields"]
+                    tr = $('<fieldset/>');
+                    console.log(json[i])
+                    tr.addClass('box');
+
+                    tr.append("<legend class='date'>" + handleDateFormatting(json_data.date) + "</legend>");
+                    tr.append("<span class='event_type'>" + json_data.event_type + "</span>");
+                    tr.append("<div class='cust_num'>" + json_data.cust_num + "</div>");
+                    tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
+                    tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
+                    tr.append("<div class='address'>" + json_data.address + "</div>");
+                    $('.openCases').append(tr);
+
+
+
+                }
+                $("fieldset:contains(smoke_detector)").css("display", "block");
+                $("fieldset:contains(glass_break)").css("display", "block");
+                $("fieldset:contains(emergency_broadcast_system)").css("display", "block");
+
+                $("fieldset:contains(doorbell)").css("display", "none");
+                $("fieldset:contains(microwave)").css("display", "none");
+                $("fieldset:contains(baby_cry)").css("display", "none");
+                $("fieldset:contains(dog_barking)").css("display", "none");
+                createElements()
+            });
+    }, 3000);
 }
 
 function showMedium() {
@@ -111,7 +164,48 @@ function showMedium() {
     $("fieldset:contains(doorbell)").css("display", "none");
     $("fieldset:contains(glass_break)").css("display", "none");
     $("fieldset:contains(microwave)").css("display", "none");
-    $("fieldset:contains(emergency_broadcast_system')").css("display", "none");
+    $("fieldset:contains(emergency_broadcast_system)").css("display", "none");
+
+    clearInterval(window.addData)
+    clearInterval(window.addHigh)
+    clearInterval(window.addLow)
+
+    window.addMedium = setInterval(function () {
+        $.getJSON('/api/get',
+            function (data) {
+                console.log(data)
+                var json = JSON.parse(data).reverse()
+                var tr;
+                $('.box').html("");
+                $(".box").remove();
+                ;
+                for (var i = 0; i < json.length; i++) {
+                    json_data = json[i]["fields"]
+                    tr = $('<fieldset/>');
+                    console.log(json[i])
+                    tr.addClass('box');
+
+                    tr.append("<legend class='date'>" + handleDateFormatting(json_data.date) + "</legend>");
+                    tr.append("<span class='event_type'>" + json_data.event_type + "</span>");
+                    tr.append("<div class='cust_num'>" + json_data.cust_num + "</div>");
+                    tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
+                    tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
+                    tr.append("<div class='address'>" + json_data.address + "</div>");
+                    $('.openCases').append(tr);
+
+
+                }
+                $("fieldset:contains(baby_cry)").css("display", "block");
+                $("fieldset:contains(dog_barking)").css("display", "block");
+
+                $("fieldset:contains(smoke_detector)").css("display", "none");
+                $("fieldset:contains(doorbell)").css("display", "none");
+                $("fieldset:contains(glass_break)").css("display", "none");
+                $("fieldset:contains(microwave)").css("display", "none");
+                $("fieldset:contains(emergency_broadcast_system)").css("display", "none");
+                createElements()
+            });
+    }, 3000);
 }
 
 function showLow() {
@@ -119,13 +213,63 @@ function showLow() {
     $("fieldset:contains(doorbell)").css("display", "block");
     $("fieldset:contains(microwave)").css("display", "block");
 
-    $("fieldset:contains(baby_cry)").css("display", "none");
+    $( "fieldset:contains(baby_cry)" ).css( "display", "none" );
+    $( "fieldset:contains(dog_barking)" ).css( "display", "none" );
+    $( "fieldset:contains(smoke_detector)" ).css( "display", "none" );
+    $( "fieldset:contains(glass_break)" ).css( "display", "none" );
+    $( "fieldset:contains(emergency_broadcast_system)" ).css( "display", "none" );
     $("fieldset:contains(dog_barking)").css("display", "none");
+
+    clearInterval(window.addData)
+    clearInterval(window.addMedium)
+    clearInterval(window.addHigh)
+
+    window.addLow = setInterval(function () {
+        $.getJSON('/api/get',
+            function (data) {
+                console.log(data)
+                var json = JSON.parse(data).reverse()
+                var tr;
+                $('.box').html("");
+                $(".box").remove();
+                ;
+                for (var i = 0; i < json.length; i++) {
+                    json_data = json[i]["fields"]
+                    tr = $('<fieldset/>');
+                    console.log(json[i])
+                    tr.addClass('box');
+
+                    tr.append("<legend class='date'>" + handleDateFormatting(json_data.date) + "</legend>");
+                    tr.append("<span class='event_type'>" + json_data.event_type + "</span>");
+                    tr.append("<div class='cust_num'>" + json_data.cust_num + "</div>");
+                    tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
+                    tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
+                    tr.append("<div class='address'>" + json_data.address + "</div>");
+                    $('.openCases').append(tr);
+
+
+                }
+                $("fieldset:contains(doorbell)").css("display", "block");
+                $("fieldset:contains(microwave)").css("display", "block");
+
+                $( "fieldset:contains(baby_cry)" ).css( "display", "none" );
+                $( "fieldset:contains(dog_barking)" ).css( "display", "none" );
+                $( "fieldset:contains(smoke_detector)" ).css( "display", "none" );
+                $( "fieldset:contains(glass_break)" ).css( "display", "none" );
+                $( "fieldset:contains(emergency_broadcast_system)" ).css( "display", "none" );
+                $("fieldset:contains(dog_barking)").css("display", "none");
+                createElements()
+            });
+    }, 3000);
 }
 
 function showAll() {
 
     $("fieldset").css("display", "block");
+    clearInterval(window.addHigh);
+    clearInterval(window.addMedium);
+    clearInterval(window.addLow);
+    addNewData();
 }
 
 
