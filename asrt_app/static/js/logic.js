@@ -7,7 +7,7 @@ $( document ).ready(function() {
                         var tr;
                          $('.box').html("");
                          $( ".box" ).remove();
-                         ;
+
                         for (var i = 0; i < json.length; i++) {
 
 
@@ -93,6 +93,9 @@ function showLow(){
 
     $( "fieldset:contains(baby_cry)" ).css( "display", "none" );
     $( "fieldset:contains(dog_barking)" ).css( "display", "none" );
+    $( "fieldset:contains(smoke_detector)" ).css( "display", "none" );
+    $( "fieldset:contains(glass_break)" ).css( "display", "none" );
+    $( "fieldset:contains(emergency_broadcast_system')" ).css( "display", "none" );
 }
 
 function showAll(){
