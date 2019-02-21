@@ -64,7 +64,7 @@ function showDescription(event) {
 
 function changeMapFocus(event){
     let coordinates = JSON.parse(event.target.children[6].innerHTML);
-    alert(typeof(coordinates)+"  ----  "+coordinates);
+
     var precision = geolocation.getAccuracy();
     $("#precision").html(precision);
 

@@ -47,15 +47,7 @@ def logout_form(request):
     logout(request)
     return redirect('index')
 
-
-
-@csrf_exempt
-def api_push(request):
-    event_type = request.META.get("HTTP_TAG")
-    cust_num = fake2.ipv4()
-    case_stat = "open"
-    case_num = request.POST.get('case_num')
-    locationsArr = [
+locationsArr = [
     {
         "address":"Times Square, Manhattan, NY, USA",
         "coordinates":[-73.985130, 40.758896]
@@ -93,12 +85,23 @@ def api_push(request):
         "coordinates":[1.453150, 43.600190]
     },
     ]
-    location = locationsArr[randint(0, len(locationsArr))]
+
+    
+
+
+
+@csrf_exempt
+def api_push(request):
+    event_type = request.META.get("HTTP_TAG")
+    cust_num = fake2.ipv4()
+    case_stat = "open"
+    case_num = request.POST.get('case_num')
+
     print(location)
     address = location.address
     coordinates = json.dumps(location.coordinates)
     print(event_type, cust_num, case_stat, case_num)
-    model = Post(event_type=event_type, cust_num=cust_num, case_stat=case_stat, case_num=case_num,date=datetime.date.today(), address=address, coordinates=coordinates)
+    model = Post(event_type=event_type, cust_num=cust_num, case_stat=case_stat, case_num=case_num, date=datetime.date.today(), address=address, coordinates=coordinates)
     model.save()
     return json.dumps("success!")
 
