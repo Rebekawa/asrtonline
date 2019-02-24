@@ -36,16 +36,19 @@ function addNewData() {
 }
 
 
+// ----high: #D62828
+// -----med: #F77F00
+// -----low: #FCBF49
 
 function createElements() {
 
-    $("fieldset:contains(smoke_detector)").css("background-color", "red");
-    $("fieldset:contains(doorbell)").css("background-color", "#00FFFF");
-    $("fieldset:contains(glass_break)").css("background-color", "red");
-    $("fieldset:contains(microwave)").css("background-color", "#00FFFF");
-    $("fieldset:contains(emergency_broadcast_system')").css("background-color", "red");
-    $("fieldset:contains(baby_cry)").css("background-color", "orange");
-    $("fieldset:contains(dog_barking)").css("background-color", "orange");
+    $("fieldset:contains(smoke_detector)").css("background-color", "#D62828");
+    $("fieldset:contains(doorbell)").css("background-color", "#FCBF49");
+    $("fieldset:contains(glass_break)").css("background-color", "#D62828");
+    $("fieldset:contains(microwave)").css("background-color", "#FCBF49");
+    $("fieldset:contains(emergency_broadcast_system')").css("background-color", "#D62828");
+    $("fieldset:contains(baby_cry)").css("background-color", "#F77F00");
+    $("fieldset:contains(dog_barking)").css("background-color", "#F77F00");
     $("fieldset").click(showDescription);
     $("fieldset").click(changeMapFocus);
 
