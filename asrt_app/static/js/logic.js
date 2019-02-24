@@ -41,7 +41,6 @@ function addNewData() {
 // -----low: #FCBF49
 
 function createElements() {
-
     $("fieldset:contains(smoke_detector)").css("background-color", "#D62828");
     $("fieldset:contains(doorbell)").css("background-color", "#FCBF49");
     $("fieldset:contains(glass_break)").css("background-color", "#D62828");
@@ -67,6 +66,7 @@ function showDescription(event) {
 
 function changeMapFocus(event){
     let coordinates = JSON.parse(event.target.children[6].innerHTML);
+
     var precision = geolocation.getAccuracy();
     $("#precision").html(precision);
 

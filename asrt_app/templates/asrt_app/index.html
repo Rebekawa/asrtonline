@@ -1,12 +1,15 @@
 {% extends 'asrt_app/base.html' %}
 
 {% block content %}
-    <div class="header"> <img id='heartbeat' src="https://www.eckerd.edu/wp-content/uploads/sites/38/2015/11/heartbeat-icon.png">LIFE MONITOR - COMMAND AND CONTROL </div>
+<div class="header"> <img id='heartbeat' src="https://www.eckerd.edu/wp-content/uploads/sites/38/2015/11/heartbeat-icon.png">
+    <h1 class="web-title">LIFE MONITOR - COMMAND AND CONTROL</h1>
+    <img class="logo" src="../../static/images/logo_Nbg_hq.png">
+</div>
 
-    {% if user.is_authenticated %}
+{% if user.is_authenticated %}
 
 
-    <div class="container">
+<div class="container">
 
 
     <div class="openCases">
@@ -15,27 +18,28 @@
         <button id="high" class='filterButtons' onclick="showHigh()">H</button>
         <button id="medium" class='filterButtons' onclick="showMedium()">M</button>
         <button id="low" class='filterButtons' onclick="showLow()">L</button>
-        <button class='filterButtons' onclick="showAll()">All</button>
+        <button id="all" class='filterButtons' onclick="showAll()">All</button>
 
         {% for Post in alerts %}
 
-        <fieldset value = {{ Post.case_num }} class="box" onclick="showDescription(this)">
-            <legend class="date" >{{ Post.date }}</legend>
+        <fieldset value={{ Post.case_num }} class="box" onclick="showDescription(this)">
+            <legend class="date">{{ Post.date }}</legend>
             <span class="event_type">{{ Post.event_type }}</span>
             <div class="cust_num">{{ Post.cust_num }}</div>
             <div class="case_stat">{{ Post.case_stat }}</div>
             <div class="case_num">{{ Post.case_num }}</div>
             <div class="address">{{ Post.address }}</div>
+            <div class="coordinates">{{Post.coordinates}}</div>
         </fieldset>
 
 
-    {% empty %}
+        {% empty %}
         <div class="empty">
             <p>No alerts...
             </p>
         </div>
 
-{% endfor %}
+        {% endfor %}
     </div>
 
     <div class="content">
@@ -57,16 +61,16 @@
             </video>
         </div>
 
-        <h1>Audio</h1>
+        <h3 class="audio-header">Audio Controls</h3>
 
-        <button id="startRecordingButton">Start recording</button>
-        <button id="stopRecordingButton">Stop recording</button>
-        <button id="playButton">Play</button>
-        <button id="downloadButton">Download</button>
+        <button id="startRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt"></i></button>
+        <button id="stopRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt-slash"></i></button>
+        <button id="playButton" class="audioBtns"><i class="fas fa-play"></i></button>
+        <button id="downloadButton" class="audioBtns"><i class="fas fa-download"></i></button>
 
         <div class="caseDescription">
 
-            <span class="caseInfos"></span>
+            <div class="caseInfos"></div>
 
             <div id="caseTitle">Case Description</div>
 
@@ -80,7 +84,7 @@
     </div>
 
 
-    </div>
+</div>
 
 {% else %}
 
