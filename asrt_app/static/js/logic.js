@@ -64,7 +64,6 @@ function showDescription(event) {
 
 function changeMapFocus(event){
     let coordinates = JSON.parse(event.target.children[6].innerHTML);
-    alert(typeof(coordinates)+"  ----  "+coordinates);
     var precision = geolocation.getAccuracy();
     $("#precision").html(precision);
 
@@ -76,13 +75,9 @@ function changeMapFocus(event){
         features: [ObjPosition]
     });
     
-    // Zoom sur l'emprise du vecteur
     sourceVecteur.once('change', function (evt) {
-        // On vérifie que la source du vecteur sont chargés
         if (sourceVecteur.getState() === 'ready') {
-            // On vérifie que le veteur contient au moins un objet géographique
             if (sourceVecteur.getFeatures().length > 0) {
-                // On adapte la vue de la carte à l'emprise du vecteur
                 map.getView().fit(sourceVecteur.getExtent(), map.getSize());
             }
         }
@@ -321,13 +316,8 @@ geolocation.on('change', function (evt) {
     var precision = geolocation.getAccuracy();
     $("#precision").html(precision);
     let position = geolocation.getPosition();
-    // On transforme la projection des coordonnées
-    var newPosition = ol.proj.transform([34.780572, 32.080883], 'EPSG:4326', 'EPSG:3857');
-    console.log("----------this is new position: "+newPosition);
-    $("#latitude").html(40.758896); // 40.758896
-    $("#longitude").html(-73.985130); // -73.985130
-    // Attribution de la géométrie de ObjPosition avec les coordonnées de la position
-    ObjPosition.setGeometry(newPosition ? new ol.geom.Point(newPosition) : null);
+    console.log("this is position    :"+position)
+    ObjPosition.setGeometry(position ? new ol.geom.Point(position) : null);
 });
 // On alerte si une erreur est trouvée
 geolocation.on('error', function (erreur) {
