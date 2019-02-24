@@ -52,7 +52,53 @@ locationsArr = [
         "address": "41 Rue Des Frères Lion 31000 Toulouse France",
         "coordinates": [1.453150, 43.600190]
     },
+    {
+        "address": "Shocken 18, Tel Aviv, Israel",
+        "coordinates": [34.772060, 32.052850]
+    },
+    {
+        "address": "Habanim 13, Ramat Gan, Israel",
+        "coordinates": [34.820910, 32.075730]
+    },
+    {
+        "address": "Matalon 1, Tel Aviv, Israel",
+        "coordinates": [34.768280, 32.058670]
+    },
+    {
+        "address": "Y L Peretz 23, Tel Aviv, Israel",
+        "coordinates": [34.775340, 32.059550]
+    },
+    {
+        "address": "Hatsoarim 7, Petah Tikva, Israel",
+        "coordinates": [34.869720, 32.089280]
+    },
+    {
+        "address": "Ben Gurion Airport, Israel",
+        "coordinates": [34.870610, 32.000060]
+    },
+    {
+        "address": "Eli Cohen 1, Tel Aviv, Israel",
+        "coordinates": [34.791910, 32.121980]
+    },
+    {
+        "address": "Sokolov 5, Herzliya, Israel",
+        "coordinates": [34.839080, 32.166820]
+    },
+    {
+        "address": "Sura 10, Ramat Gan, Israel",
+        "coordinates": [34.834820, 32.068790]
+    },
+    {
+        "address": "Rue Renier Chalon 42, Brussels, Belgium",
+        "coordinates": [4.360010, 50.818300]
+    },
+    {
+        "address": "Rue De L'instruction 121, Brussels, Belgium",
+        "coordinates": [4.330730, 50.836770]
+    },
+
 ]
+
 
 @csrf_exempt
 def index(request):
