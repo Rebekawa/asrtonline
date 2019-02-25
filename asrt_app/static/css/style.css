@@ -158,7 +158,6 @@ body{
 
 fieldset:first-child{
     margin-top: 60px
-
 }
 
 .empty{
@@ -195,6 +194,7 @@ fieldset:first-child{
     color: white;
     cursor: pointer;
 }
+
 .userNameDiv:hover{
     background-color: #003049;
     color: white;
@@ -210,11 +210,23 @@ fieldset:first-child{
     right: 27%;
 }
 
-.dateDiv{
+#notificationAlerts{
     position: absolute;
-    right: 40%;
-    margin: 15px;
-    font-weight: bold;
+    top: 1%;
+    left: 40%;
+    background: rgb(249, 149, 149);
+    height: 90px;
+    width: 270px;
+    border: red solid thin;
+    
+}
+
+#notificationAlerts p{
+    padding: 2px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    
 }
 
 #carte{
@@ -306,26 +318,27 @@ input[type=submit]:hover {
 }
 
 .caseDescription{
+    display: none;
     border-top: 2px solid #003049;
     width: 950px;
-    height: 40px;
+    flex-direction: row;
 }
-
-.desContainer {
-    height: 70px;
+.descriptionSideContainer{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 185px;
+}
+#desContainer {
+    max-height: none;
+    min-height: inherit;
+    height: auto;
     width: 400px;
-    position: absolute;
-    left: 40%;
-    top: 78%;
-    margin-bottom: 0px;
     border: 1px solid #003049;
-    padding: 7px;
+    border-radius: 5px;
 }
 
 #caseTitle {
-    position: absolute;
-    left: 40%;
-    top: 74%;
     font-size: 18px;
     font-weight: bold;
     color: #003049;
@@ -333,9 +346,58 @@ input[type=submit]:hover {
 
 .caseInfos{
     margin: 1%;
+    width: 300px;
 }
 
-.box .cust_num, .case_stat, .case_num, .address, .coordinates{
+.descriptionBtns{
+    margin-top: 0.2%;
+}
+
+.desBtn{
+    height: 30px;
+    width: 70px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: none;
+    color: #003049;
+    padding-top: 1px;
+}
+
+.desBtn:hover{
+    height: 30px;
+    width: 70px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: none;
+    color: #003049;
+    font-weight: 800;
+    padding-top: 1px;
+}
+
+#submitBtnUpdateForm{
+    height: 30px;
+    width: 70px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: none;
+    background: white;
+    color: #003049;
+    padding-top: 1px;
+}
+
+#submitBtnUpdateForm:hover{
+    height: 30px;
+    width: 70px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: none;
+    color: #003049;
+    background: white;
+    font-weight: 800;
+    padding-top: 1px;
+}
+
+.box .cust_num, .case_stat, .case_num, .address, .coordinates, .case_description{
     display: none;
 }
 

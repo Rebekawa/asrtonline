@@ -1,5 +1,5 @@
 import json
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
@@ -153,4 +153,16 @@ def api_get(request):
     posts = Post.objects.all()
     data = serializers.serialize('json', posts)
     return JsonResponse(data, safe=False)
+
+
+
+@csrf_exempt
+def api_update(request, case_num):
+    post = Post.objects.get(case_num=case_num)
+    post.case_description = request.POST.get('case_description')
+    print("this is case description from form as inputed" + request.POST.get('case_description'))
+    post.save()
+    return HttpResponseRedirect('/')
+
+
 

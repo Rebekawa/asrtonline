@@ -1,10 +1,12 @@
 $(document).ready(function () {
-
     addNewData();
+    createElements();
+    $("#cancelDesFormBtn").click(cancelDescriptionForm);
+    $("#closeDesFormBtn").click(closeDescriptionForm)
 });
 
 function addNewData() {
-        window.addData = setInterval(function() {
+    window.addData = setInterval(function () {
         $.getJSON('/api/get',
             function (data) {
                 console.log(data)
@@ -26,6 +28,7 @@ function addNewData() {
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
                     tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
+                    tr.append("<div class='case_description'>" + json_data.case_description + "</div>");
                     $('.openCases').append(tr);
 
 
@@ -34,11 +37,6 @@ function addNewData() {
             });
     }, 3000);
 }
-
-
-// ----high: #D62828
-// -----med: #F77F00
-// -----low: #FCBF49
 
 function createElements() {
     $("fieldset:contains(smoke_detector)").css("background-color", "#D62828");
@@ -50,11 +48,12 @@ function createElements() {
     $("fieldset:contains(dog_barking)").css("background-color", "#F77F00");
     $("fieldset").click(showDescription);
     $("fieldset").click(changeMapFocus);
+    $("fieldset").click(setFormAction);
 
 }
 
 
-function showDescription(event) {
+function showDescription() {
     var arr = $(this).find('*')
     $('.desContainer').text(arr[1].textContent + ' located in ' + arr[5].textContent)
     $('.caseInfos').html('<br/>' + 'Event type - ' + arr[1].textContent
@@ -63,35 +62,6 @@ function showDescription(event) {
         + '<br/>' + 'Case status - ' + arr[3].textContent
         + '<br/>' + 'Case number - ' + arr[4].textContent)
 };
-
-function changeMapFocus(event){
-    let coordinates = JSON.parse(event.target.children[6].innerHTML);
-
-    var precision = geolocation.getAccuracy();
-    $("#precision").html(precision);
-
-    var newPosition = ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857');
-    
-    ObjPosition.setGeometry(newPosition ? new ol.geom.Point(newPosition) : null);
-
-    var sourceVecteur = new ol.source.Vector({
-        features: [ObjPosition]
-    });
-    
-    sourceVecteur.once('change', function (evt) {
-        if (sourceVecteur.getState() === 'ready') {
-            if (sourceVecteur.getFeatures().length > 0) {
-                map.getView().fit(sourceVecteur.getExtent(), map.getSize());
-            }
-        }
-    });
-}
-
-$(document).ready(function () {
-    createElements()
-
-});
-
 
 function showHigh() {
     console.log('High');
@@ -135,6 +105,8 @@ function showHigh() {
                     tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
+                    tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
+                    tr.append("<div class='case_description'>" + json_data.case_description + "</div>");
                     $('.openCases').append(tr);
 
 
@@ -189,6 +161,9 @@ function showMedium() {
                     tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
+                    tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
+                    tr.append("<div class='case_description'>" + json_data.case_description + "</div>");
+
                     $('.openCases').append(tr);
 
 
@@ -211,11 +186,11 @@ function showLow() {
     $("fieldset:contains(doorbell)").css("display", "block");
     $("fieldset:contains(microwave)").css("display", "block");
 
-    $( "fieldset:contains(baby_cry)" ).css( "display", "none" );
-    $( "fieldset:contains(dog_barking)" ).css( "display", "none" );
-    $( "fieldset:contains(smoke_detector)" ).css( "display", "none" );
-    $( "fieldset:contains(glass_break)" ).css( "display", "none" );
-    $( "fieldset:contains(emergency_broadcast_system)" ).css( "display", "none" );
+    $("fieldset:contains(baby_cry)").css("display", "none");
+    $("fieldset:contains(dog_barking)").css("display", "none");
+    $("fieldset:contains(smoke_detector)").css("display", "none");
+    $("fieldset:contains(glass_break)").css("display", "none");
+    $("fieldset:contains(emergency_broadcast_system)").css("display", "none");
     $("fieldset:contains(dog_barking)").css("display", "none");
 
     clearInterval(window.addData)
@@ -243,6 +218,8 @@ function showLow() {
                     tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
+                    tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
+                    tr.append("<div class='case_description'>" + json_data.case_description + "</div>");
                     $('.openCases').append(tr);
 
 
@@ -250,11 +227,11 @@ function showLow() {
                 $("fieldset:contains(doorbell)").css("display", "block");
                 $("fieldset:contains(microwave)").css("display", "block");
 
-                $( "fieldset:contains(baby_cry)" ).css( "display", "none" );
-                $( "fieldset:contains(dog_barking)" ).css( "display", "none" );
-                $( "fieldset:contains(smoke_detector)" ).css( "display", "none" );
-                $( "fieldset:contains(glass_break)" ).css( "display", "none" );
-                $( "fieldset:contains(emergency_broadcast_system)" ).css( "display", "none" );
+                $("fieldset:contains(baby_cry)").css("display", "none");
+                $("fieldset:contains(dog_barking)").css("display", "none");
+                $("fieldset:contains(smoke_detector)").css("display", "none");
+                $("fieldset:contains(glass_break)").css("display", "none");
+                $("fieldset:contains(emergency_broadcast_system)").css("display", "none");
                 $("fieldset:contains(dog_barking)").css("display", "none");
                 createElements()
             });
@@ -271,6 +248,8 @@ function showAll() {
 }
 
 
+
+//Map Handling-------------
 var view = new ol.View({
     center: [0, 0],
     zoom: 2,
@@ -309,17 +288,13 @@ var geolocation = new ol.Geolocation({
     projection: view.getProjection()
 });
 
-
-
-
-
-
 // On scrute les changements des propriétés
-geolocation.on('change', function (evt) {
+
+geolocation.on('change', function () {
     var precision = geolocation.getAccuracy();
     $("#precision").html(precision);
     let position = geolocation.getPosition();
-    console.log("this is position    :"+position)
+    console.log("this is position    :" + position)
     ObjPosition.setGeometry(position ? new ol.geom.Point(position) : null);
 });
 // On alerte si une erreur est trouvée
@@ -347,7 +322,53 @@ sourceVecteur.once('change', function (evt) {
     }
 });
 
-//video
+function changeMapFocus(event) {
+    let coordinates = JSON.parse(event.target.children[6].innerHTML);
+
+    var precision = geolocation.getAccuracy();
+    $("#precision").html(precision);
+
+    var newPosition = ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857');
+
+    ObjPosition.setGeometry(newPosition ? new ol.geom.Point(newPosition) : null);
+
+    var sourceVecteur = new ol.source.Vector({
+        features: [ObjPosition]
+    });
+
+    sourceVecteur.once('change', function (evt) {
+        if (sourceVecteur.getState() === 'ready') {
+            if (sourceVecteur.getFeatures().length > 0) {
+                map.getView().fit(sourceVecteur.getExtent(), map.getSize());
+            }
+        }
+    });
+}
+
+//handle form action url change based on case_num that was clicked on --------------
+let currentDescription = ""
+
+function setFormAction(event){
+    const updateForm = $("#updatePostForm");
+    let case_num = event.target.children[4].innerHTML;
+    $("#desContainer")[0].value = event.target.children[7].innerHTML;
+    $(".caseDescription").css("display", "flex");
+    updateForm.attr("action", "api/update/"+case_num);
+    currentDescription = event.target.children[7].innerHTML;
+}
+
+
+
+function cancelDescriptionForm(){
+    $("#desContainer")[0].value = currentDescription;
+}
+
+function closeDescriptionForm(){
+    $(".caseDescription").css("display", "none");
+}
+
+
+//video handling -----------
 
 var video = document.querySelector("#videoElement");
 
@@ -357,12 +378,12 @@ if (navigator.mediaDevices.getUserMedia) {
             video.srcObject = stream;
         })
         .catch(function (error) {
-            console.log("Something went wrong: "+error);
+            console.log("Something went wrong: " + error);
         });
 }
 
 
-//micro
+//microphone handling -------------
 
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("stopRecordingButton");
@@ -511,7 +532,7 @@ function handleDateFormatting(jsonDate) {
     var year = json_date.getFullYear();
     var hour = json_date.getHours();
     var mins = json_date.getMinutes();
-    
+
     function pad(n) {
         return n < 10 ? '0' + n : n;
     }
