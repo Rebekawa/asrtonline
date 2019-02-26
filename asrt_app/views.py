@@ -164,5 +164,15 @@ def api_update(request, case_num):
     post.save()
     return HttpResponseRedirect('/')
 
-
+@csrf_exempt
+def api_change_event_status(request, case_num, case_stat):
+    print("this is change event status: case num - "+str(case_num)+"  case status: "+str(case_stat))
+    if case_stat == "open":
+        new_case_status = "close"
+    else: 
+        new_case_status = "open"
+    post = Post.objects.get(case_num=case_num)
+    post.case_stat = new_case_status
+    post.save()
+    return HttpResponseRedirect('/')
 

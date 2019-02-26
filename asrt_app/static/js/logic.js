@@ -5,7 +5,7 @@ $(document).ready(function () {
     showOpenCases();
     createElements();
     $("#cancelDesFormBtn").click(cancelDescriptionForm);
-    $("#closeDesFormBtn").click(closeDescriptionForm);
+    $("#closeDesFormBtn").click(closeDescriptionForm)
 
 });
 
@@ -29,7 +29,8 @@ function createElements() {
     $("fieldset:contains(dog_barking)").addClass("medium");
     $("fieldset").click(showDescription);
     $("fieldset").click(changeMapFocus);
-    $("fieldset").click(setFormAction);
+    $("fieldset").click(setUpdateFormAction);
+    $("fieldset").click(setChangeStatusFormAction);
 
 }
 
@@ -252,9 +253,26 @@ function showDescription() {
     $('.caseInfos').html('<br/>' + 'Event type - ' + arr[1].textContent
         + '<br/>' + 'Date & Time - ' + arr[0].textContent
         + '<br/>' + 'Cust num - ' + arr[2].textContent
-        + '<br/>' + 'Case status - ' + arr[3].textContent
-        + '<br/>' + 'Case number - ' + arr[4].textContent)
+        + '<br/>' + 'Case number - ' + arr[4].textContent
+        + '<br/>' + 'Case status - ' + arr[3].textContent 
+        + '<form id="changeEventStatusForm" method="post" action="#"><button id="closeCaseBtn">close case</button>' 
+        + '<button id="openCaseBtn">open case</button></form>')
+    if(arr[3].textContent=="open"){
+        $("#closeCaseBtn").css("display","block");
+        $("#openCaseBtn").css("display","none");
+    }else{
+        $("#closeCaseBtn").css("display","none");
+        $("#openCaseBtn").css("display","block");
+    }
+    
 };
+
+function switchDisplay(event){
+    let currentDisplay = event.target.style.display;
+    let newDisplay = "";
+    currentDisplay == "block" ? newDisplay="none" : newDisplay="block";
+    event.target.style.display = newDisplay;
+}
 
 
 
@@ -356,10 +374,17 @@ function changeMapFocus(event) {
     });
 }
 
+function setChangeStatusFormAction(){
+    const changeStatusForm = $("#changeEventStatusForm");
+    let case_num = event.target.children[4].innerHTML;
+    let case_stat = event.target.children[3].innerHTML;
+    changeStatusForm.attr("action", "api/changeEventStatus/"+case_num+"/"+case_stat);
+}
+
 //handle form action url change based on case_num that was clicked on --------------
 let currentDescription = ""
 
-function setFormAction(event){
+function setUpdateFormAction(event){
     const updateForm = $("#updatePostForm");
     let case_num = event.target.children[4].innerHTML;
     $("#desContainer")[0].value = event.target.children[7].innerHTML;
