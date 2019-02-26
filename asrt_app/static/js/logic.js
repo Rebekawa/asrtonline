@@ -135,6 +135,7 @@ function showHigh() {
                     tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
+                    tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
                     $('.openCases').append(tr);
 
 
@@ -189,6 +190,7 @@ function showMedium() {
                     tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
+                    tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
                     $('.openCases').append(tr);
 
 
@@ -243,6 +245,7 @@ function showLow() {
                     tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                     tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
                     tr.append("<div class='address'>" + json_data.address + "</div>");
+                    tr.append("<div class='coordinates'>" + json_data.coordinates + "</div>");
                     $('.openCases').append(tr);
 
 

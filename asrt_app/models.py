@@ -9,5 +9,5 @@ class Post(models.Model):
     cust_num = models.CharField(max_length=100, null=False)
     case_stat = models.CharField(max_length=100, null=False)
     case_num = models.AutoField(primary_key=True)
-    address = models.CharField(max_length=1000, null=False)
+    address = models.CharField(max_length=500, null=False)
     coordinates = models.CharField(max_length=1000, default=json.dumps([-73.985130, 40.758896]))

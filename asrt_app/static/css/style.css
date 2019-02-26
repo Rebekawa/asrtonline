@@ -10,7 +10,7 @@ body{
     height: 20%;
     padding: 15px;
     margin: 0;
-    background-color:	#E1E9F7;
+    background-color: #E1E9F7;
     border-bottom: 2px solid #003049;
     color: #003049;
     display: flex;
@@ -225,11 +225,12 @@ fieldset:first-child{
 }
 
 .loginPage{
-    background-color: #F0FFFF;
+    background-color: #E1E9F7;
     padding: 20px;
     margin: 15%;
     border-radius: 20px;
-    border: 2px solid red;
+    border: 2px solid #003049;
+    color: #003049;
 }
 
 #notLoggedIn{
@@ -241,16 +242,16 @@ fieldset:first-child{
 .btn {
     display: flex;
     justify-content:center;
-    background-color: #F0FFFF;
-    border: #F0FFFF;
+    background-color: #E1E9F7;
+    border: #E1E9F7;
 }
 
 .loginform{
-    background-color: #F0FFFF;
+    background-color: #E1E9F7;
     border-radius: 20px;
     padding: 10px;
     margin: 15px;
-    border: 2px solid red;
+    border: 2px solid #003049;
 }
 
 input[type=text], input[type=password] {
@@ -275,6 +276,7 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #00FFFF;
+    color: black;
 }
 
 .backButton{
@@ -285,7 +287,7 @@ input[type=submit]:hover {
 }
 
 .backButton:hover{
-    border: 2px solid red;
+    border: 2px solid #003049;
     border-radius: 20px;
 }
 
