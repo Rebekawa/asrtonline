@@ -7,4 +7,5 @@ urlpatterns = [
     path('accounts/logout/', views.logout_form, name='logout'),
     path('api/push', views.api_push),
     path('api/get', views.api_get),
+    path('api/update/<case_num>', views.api_update),
 ]

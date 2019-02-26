@@ -13,7 +13,10 @@
 
 
     <div class="openCases">
-        <h2>Open Cases</h2>
+        <div>
+        <button id="openCaseButton" onclick="showOpenCases()">Open Cases</button> / <button id="closeCaseButton" onclick="showCloseCases()">Close Cases</button>
+        </div>
+        <br>
 
         <button id="high" class='filterButtons' onclick="showHigh()">H</button>
         <button id="medium" class='filterButtons' onclick="showMedium()">M</button>
@@ -43,7 +46,10 @@
     </div>
 
     <div class="content">
-        <div class="dateDiv">{{date}}</div>
+        <div id="notificationAlerts">
+            <p>Notification console:</p>
+            <p class="notificationContent"></p>
+        </div>
         <div class="userNameDiv">
             <div>Welcome</div>
             <div>{{ user.username }}</div>
@@ -71,10 +77,18 @@
         <div class="caseDescription">
 
             <div class="caseInfos"></div>
+            <form action="#" method="POST" id="updatePostForm" class="descriptionSideContainer">
+                <div id="caseTitle">Case Description</div>
 
-            <div id="caseTitle">Case Description</div>
+                <textarea id="desContainer" name="case_description" rows="4"></textarea>
 
-            <div class="desContainer"></div>
+                <div class="descriptionBtns">
+                    <input type="submit" value="Update" id="submitBtnUpdateForm">|
+                    <button type="button" class="desBtn" id="cancelDesFormBtn">Cancel</button>|
+                    <button type="button" class="desBtn" id="closeDesFormBtn">Close</button>
+                </div>
+            </form>
+
 
         </div>
 
