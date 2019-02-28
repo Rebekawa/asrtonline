@@ -47,6 +47,9 @@ $(document).ready(function () {
     function showOpenCases() {
         $("#openCaseButton").css("font-weight","bold");
         $("#closeCaseButton").css("font-weight","100");
+        $("#openCaseButton").css("text-decoration","underline");
+        $("#closeCaseButton").css("text-decoration","none");
+
         clearInterval(window.showCloseCase)
 
         state = 0;
@@ -114,8 +117,10 @@ $(document).ready(function () {
 
 
     function showCloseCases() {
-        $("#openCaseButton").css("font-weight","200");
+        $("#openCaseButton").css("font-weight","100");
         $("#closeCaseButton").css("font-weight","bold");
+        $("#openCaseButton").css("text-decoration","none");
+        $("#closeCaseButton").css("text-decoration","underline");
         clearInterval(window.showOpenCase)
 
         state = 1;
