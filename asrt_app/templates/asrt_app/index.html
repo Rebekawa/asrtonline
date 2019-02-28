@@ -8,24 +8,29 @@
 
 {% if user.is_authenticated %}
 
+<div class="notification-slider">
+</div>
 
 <div class="container">
 
 
     <div class="openCases">
         <div>
-        <button id="openCaseButton" onclick="showOpenCases()">Open Cases</button> / <button id="closeCaseButton" onclick="showCloseCases()">Close Cases</button>
+            <h2>
+                <button class="casesButton" id="openCaseButton">Open Cases</button> / 
+                <button class="casesButton" id="closeCaseButton">Closed Cases</button>
+            </h2>
         </div>
         <br>
 
-        <button id="high" class='filterButtons' onclick="showHigh()">H</button>
-        <button id="medium" class='filterButtons' onclick="showMedium()">M</button>
-        <button id="low" class='filterButtons' onclick="showLow()">L</button>
-        <button id="all" class='filterButtons' onclick="showAll()">All</button>
+        <button id="high" class='filterButtons'>H</button>
+        <button id="medium" class='filterButtons'>M</button>
+        <button id="low" class='filterButtons'>L</button>
+        <button id="all" class='filterButtons'>All</button>
 
         {% for Post in alerts %}
 
-        <fieldset value={{ Post.case_num }} class="box" onclick="showDescription(this)">
+        <fieldset value={{ Post.case_num }} class="box">
             <legend class="date">{{ Post.date }}</legend>
             <span class="event_type">{{ Post.event_type }}</span>
             <div class="cust_num">{{ Post.cust_num }}</div>
@@ -46,34 +51,31 @@
     </div>
 
     <div class="content">
-        <div id="notificationAlerts">
-            <p>Notification console:</p>
-            <p class="notificationContent"></p>
-        </div>
-        <div class="userNameDiv">
-            <div>Welcome</div>
-            <div>{{ user.username }}</div>
-            <a href="/accounts/logout">Logout</a>
+        <div class="topStripe">
+            <div class="map">
+                <div id="carte"></div>
+            </div>
+            <div class="rightSideContent">
+                <div class="topRowTools">
+                    <div class="audioPanel">
+                        <h3 class="audio-header">Audio</h3>
+                        <button id="startRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt"></i></button>
+                        <button id="stopRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt-slash"></i></button>
+                    </div>
+                    <div class="userNameDiv">
+                        <div>Welcome</div>
+                        <div>{{ user.username }}</div>
+                        <a href="/accounts/logout">Logout</a>
+
+                    </div>
+                </div>
+                <div class="videoContainer">
+                    <video autoplay="true" id="videoElement">
+                    </video>
+                </div>
+            </div>
 
         </div>
-        <div class="map">
-            <div id="carte"></div>
-        </div>
-
-
-        <div id="container">
-            <video autoplay="true" id="videoElement">
-
-            </video>
-        </div>
-
-        <h3 class="audio-header">Audio Controls</h3>
-
-        <button id="startRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt"></i></button>
-        <button id="stopRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt-slash"></i></button>
-        <button id="playButton" class="audioBtns"><i class="fas fa-play"></i></button>
-        <button id="downloadButton" class="audioBtns"><i class="fas fa-download"></i></button>
-
         <div class="caseDescription">
 
             <div class="caseInfos"></div>
@@ -99,6 +101,8 @@
 
 
 </div>
+
+
 
 {% else %}
 

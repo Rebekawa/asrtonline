@@ -5,17 +5,32 @@ body{
     padding:0;
     font-family: 'Montserrat', sans-serif;
 }
+.rightSideContent{
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+}
 
+.topRowTools{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
 .header {
     height: 20%;
-    padding: 15px;
+    padding: 5px;
     margin: 0;
-    background-color: #E1E9F7;
+    background-color:	#E1E9F7;
     border-bottom: 2px solid #003049;
     color: #003049;
     display: flex;
     align-items: center;
     flex-direction: row;
+}
+
+.notification-slider{
+    height: 50px;
+    border-bottom: 2px solid #003049;
 }
 
 .web-title{
@@ -24,9 +39,9 @@ body{
 }
 
 .logo{
-    height: 75px;
-    width: 75px;
-    margin-left: 18%;
+    height: 60px;
+    width: 60px;
+    margin-left: 20%;
 }
 
 #heartbeat{
@@ -38,49 +53,67 @@ body{
 }
 
 .container{
-    position: relative;
+    display: flex;
+    flex-direction: row;
 }
 
 .content{
-    width: 100%;
+    width: 76%;
     height: 88vh;
-    position: absolute;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
 }
 
+.topStripe{
+    display: flex;
+    flex-direction: row;
+}
+.audioPanel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+
+}
 .audio-header{
     margin: 0;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     color: #003049;
     margin-left: 0.75%;
     margin-top: 0.5%;
-    margin-bottom: 0.1%;
+    margin-bottom: 10%;
 }
 
 .audioBtns{
-    height: 28px;
-    width: 28px;
+    height: 40px;
+    width: 40px;
     margin-left: 0.5%;
     margin-bottom: 0.5%;
-    border: black thin solid;
+    border: #003049 thin solid;
     padding: auto auto;
     color: white;
-    background-color: black;
+    background-color: #003049;
     border-radius: 10%;
     cursor: pointer;
+    padding: 5px;
+    margin-top: 0.5%;
+    font-size: 18px;
 }
 
 .audioBtns:hover{
-    height: 28px;
-    width: 28px;
+    height: 40px;
+    width: 40px;
     margin-left: 0.5%;
     margin-bottom: 0.5%;
-    border: black thin solid;
+    border: #003049 thin solid;
     padding: auto auto;
-    color: black;
+    color: #003049;
     background-color: white;
     border-radius: 10%;
+    padding: 5px;
+    margin-top: 0.5%;
+    font-size: 18px;
 }
 
 .openCases {
@@ -180,6 +213,7 @@ fieldset:first-child{
 }
 
 .userNameDiv{
+    text-align: center;
     background-color: white;
     color: #003049;
     border-radius: 5px;
@@ -190,8 +224,6 @@ fieldset:first-child{
     font-Size: 16px;
     width: 100px;
     height: auto;
-    position: absolute;
-    right: 27%;
 }
 
 .userNameDiv a{
@@ -215,8 +247,6 @@ fieldset:first-child{
     font-Size: 16px;
     width: 100px;
     height: auto;
-    position: absolute;
-    right: 27%;
 }
 
 #notificationAlerts{
@@ -312,26 +342,24 @@ input[type=submit]:hover {
     border-radius: 20px;
 }
 
-#container {
-    position: absolute;
-    top: 17%;
+.videoContainer {
     left: 40%;
     margin: 0px auto;
     width: 400px;
-    height: 243px;
+    height: 246px;
     border: 5px #333 solid;
 }
 
 #videoElement {
     width: 400px;
-    height: 243px;
+    height: 246px;
     background-color: #666;
 }
 
 .caseDescription{
+    margin-top: 3%;
     display: none;
     border-top: 2px solid #003049;
-    width: 950px;
     flex-direction: row;
 }
 .descriptionSideContainer{
@@ -358,6 +386,7 @@ input[type=submit]:hover {
 .caseInfos{
     margin: 1%;
     width: 300px;
+    font-size: 16px;
 }
 
 .descriptionBtns{
@@ -372,6 +401,7 @@ input[type=submit]:hover {
     border: none;
     color: #003049;
     padding-top: 1px;
+    cursor: pointer;
 }
 
 .desBtn:hover{
@@ -383,6 +413,7 @@ input[type=submit]:hover {
     color: #003049;
     font-weight: 800;
     padding-top: 1px;
+    cursor: pointer;
 }
 
 #submitBtnUpdateForm{
@@ -408,7 +439,7 @@ input[type=submit]:hover {
     padding-top: 1px;
 }
 
-.box .cust_num, .case_stat, .case_num, .address, .coordinates, .case_description{
+.box .cust_num, .case_stat, .case_num, .address, .coordinates, .case_description, .jsonDate, #stopRecordingButton{
     display: none;
 }
 
@@ -437,26 +468,45 @@ input[type=submit]:hover {
 .low{
     background-color: #FCBF49;
 }
-
+.selectCaseTypeContainer{
+    display: flex;
+    flex-direction: row;
+}
+.caseBtnContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #003049;
+}
+.splitter{
+    padding-top: 12px;
+    font-size: 30px;
+    margin: 0 6px;
+}
 #closeCaseBtn{
+    margin-top: 6px;
     background-color: white;
     color: red;
     border: thin solid red;
     cursor: pointer;
     margin-left: 0.3%;
     border-radius: 3px;
+    padding: 6px;
 }
 
 #closeCaseBtn:hover{
+    margin-top: 6px;
     background-color: red;
     color: white;
     border: thin solid red;
     cursor: pointer;
     margin-left: 0.3%;
     border-radius: 3px;
+    padding: 6px;
 }
 
 #openCaseBtn{
+    margin-top: 6px;
     display: none;
     background-color: white;
     color: green;
@@ -464,15 +514,44 @@ input[type=submit]:hover {
     cursor: pointer;
     margin-left: 0.3%;
     border-radius: 3px;
+    padding: 6px;
 }
 
 #openCaseBtn:hover{
+    margin-top: 6px;
     background-color: green;
     color: white;
     border: thin solid green;
     cursor: pointer;
     margin-left: 0.3%;
     border-radius: 3px;
+    padding: 6px;
+}
+.openCases h2{
+    color: #003049;
+    font-size: 28px;
+    font-family: 'Montserrat', sans-serif;
+}
+.casesButton{
+    font-size: 21px;
+    font-weight: 600;
+    color: #003049;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+
 }
 
-
+.casesButton:hover{
+    font-size: 21px;
+    font-weight: 600;
+    color: #003049;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
