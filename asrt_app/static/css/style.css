@@ -1,6 +1,7 @@
 body{
     height: 100%;
     width: 100%;
+    overflow: hidden;
     margin:0;
     padding:0;
     font-family: 'Montserrat', sans-serif;
@@ -527,11 +528,13 @@ input[type=submit]:hover {
     border-radius: 3px;
     padding: 6px;
 }
+
 .openCases h2{
     color: #003049;
     font-size: 28px;
     font-family: 'Montserrat', sans-serif;
 }
+
 .casesButton{
     font-size: 21px;
     font-weight: 600;
@@ -555,3 +558,16 @@ input[type=submit]:hover {
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
 }
+
+
+.notification-start {
+    top: 13%;
+    position: absolute;
+    right: 120%;
+    white-space: pre;
+    transition: right 4s ease-in;
+    -webkit-transition: right 4s ease-in;
+    -moz-transition: right 4s ease-in;
+    color: red;
+}
+  

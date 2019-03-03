@@ -8,8 +8,9 @@ $(document).ready(function () {
     createElements();
     analyzePosts();
     initializeClicks();
+    setTimeout(checkForEmegencies, 3500);
 
-    function initializeClicks(){
+    function initializeClicks() {
         $("#cancelDesFormBtn").click(cancelDescriptionForm);
         $("#closeDesFormBtn").click(closeDescriptionForm);
         $("#openCaseButton").click(showOpenCases);
@@ -45,9 +46,11 @@ $(document).ready(function () {
     }
 
     function showOpenCases() {
-        $("#openCaseButton").css("font-weight","bold");
-        $("#closeCaseButton").css("font-weight","100");
-        clearInterval(window.showCloseCase)
+        $("#openCaseButton").css("font-weight", "bold");
+        $("#closeCaseButton").css("font-weight", "100");
+        clearInterval(window.showCloseCase);
+        setTimeout(checkForEmegencies, 300);
+
 
         state = 0;
         intensity = 0;
@@ -114,8 +117,9 @@ $(document).ready(function () {
 
 
     function showCloseCases() {
-        $("#openCaseButton").css("font-weight","200");
-        $("#closeCaseButton").css("font-weight","bold");
+        $("#openCaseButton").css("font-weight", "200");
+        $("#closeCaseButton").css("font-weight", "bold");
+
         clearInterval(window.showOpenCase)
 
         state = 1;
@@ -282,23 +286,107 @@ $(document).ready(function () {
         event.target.style.display = newDisplay;
     }
 
-    window.checkForEmegencies = setInterval(function () {
+    function checkForEmegencies() {
         let timeNow = + new Date();
-        const minutesSpan = 320;
+        const minutesSpan = 30;
         let minTimeRange = substractMinutes(timeNow, minutesSpan / 2);
         let maxTimeRange = addMinutes(timeNow, minutesSpan / 2);
         let postsArray = $(".open");
         if (state == 1) {
-            postsArray = $(".close");
+            return;
         }
         let postsWithinMinutesSpan = [];
+        let location = "";
         for (var i = 0; i < postsArray.length - 1; i++) {
             let postTime = convertJsonDateToNumOfSecs(postsArray[i].childNodes[8].innerHTML) * 1000;
             if (minTimeRange < postTime && postTime < maxTimeRange) {
+                location = postsArray[i].childNodes[5].innerHTML;
                 postsWithinMinutesSpan.push(postsArray[i]);
             }
         }
-    }, 3350);
+        let postsWithinRadiusArr = postsWithinRadius(100, postsWithinMinutesSpan);
+        let eventTypesObject = {};
+        eventTypesObject["location"] = location;
+        eventTypesObject["dog_barking"] = countThisEvent("dog_barking", postsWithinRadiusArr);
+        eventTypesObject["baby_cry"] = countThisEvent("baby_cry", postsWithinRadiusArr);
+        eventTypesObject["glass_break"] = countThisEvent("glass_break", postsWithinRadiusArr);
+        eventTypesObject["smoke_detector"] = countThisEvent("smoke_detector", postsWithinRadiusArr);
+        eventTypesObject["doorbell"] = countThisEvent("doorbell", postsWithinRadiusArr);
+        eventTypesObject["microwave"] = countThisEvent("microwave", postsWithinRadiusArr);
+        eventTypesObject["emergency_broadcast_system"] = countThisEvent("emergency_broadcast_system", postsWithinRadiusArr);
+
+        checkIfAlertIsWarranted(eventTypesObject);
+        setTimeout(checkForEmegencies, 22000);
+    };
+
+    function postsWithinRadius(radius, postsArray) {
+        posts = [];
+        posts.push(postsArray[0].childNodes[1].innerHTML);
+        for (var i = 0; i < postsArray.length - 1; i++) {
+            let coordinatesFocus = JSON.parse(postsArray[i].childNodes[6].innerHTML);
+            let coordinatesComparable = JSON.parse(postsArray[i+1].childNodes[6].innerHTML);
+            
+            let distance = getDistance(coordinatesFocus[1], coordinatesFocus[0], coordinatesComparable[1], coordinatesComparable[0]);
+            if (distance < radius) {
+                posts.push(postsArray[i+1].childNodes[1].innerHTML)
+            }
+
+        }
+        return posts;
+    }
+
+    function getDistance($latitude1, $longitude1, $latitude2, $longitude2) {
+        $earth_radius = 6371;
+        let deg2rad = (n) => { return Math.tan(n * (Math.PI / 180)) };
+        $dLat = deg2rad($latitude2 - $latitude1);
+        $dLon = deg2rad($longitude2 - $longitude1);
+
+        $a = Math.sin($dLat / 2) * Math.sin($dLat / 2) + Math.cos(deg2rad($latitude1)) * Math.cos(deg2rad($latitude2)) * Math.sin($dLon / 2) * Math.sin($dLon / 2);
+        $c = 2 * Math.asin(Math.sqrt($a));
+        $d = $earth_radius * $c;
+
+        return $d;
+    }
+
+    function checkIfAlertIsWarranted(event) {
+        const notificationBox = $(".notification-slider");
+        let notification=$("<div></div>");
+        if (event["dog_barking"] >= 3 && event["baby_cry"] >= 3 && event["glass_break"] >= 3) {
+            notification = $(`<span>High chances of burglary at ${event["location"]}</span>`);
+        }else if(event["dog_barking"] >= 2 && event["baby_cry"] >= 2 && event["glass_break"] >= 2){
+            notification = $(`<span>Medium chances burglary at ${event["location"]}</span>`);
+        }else if(event["dog_barking"] >= 1 && event["baby_cry"] >= 1 && event["glass_break"] >= 1){
+            notification = $(`<span>Low chances of burglary at ${event["location"]}</span>`);
+        }else if(event["smoke_detector"]>2){
+            notification = $(`<span>Local fire reported at ${event["location"]}</span>`);
+        }
+        if(notification.innerHTML==""){
+            return;
+        }
+        notification.addClass('notification-start');
+            notificationBox.append(notification);
+            notification.animate({
+                left: '120%',
+                display: 'none'
+            }, {
+                    duration: 20000,
+                    easing: 'linear',
+                    queue: false,
+                    done: function () {
+                        $(this).remove()
+                    }
+                });
+    }
+
+    function countThisEvent(eventName, relevantPosts) {
+        let count = 0;
+        relevantPosts.forEach(function (post) {
+            if (post == eventName) {
+                count = count + 1;
+            }
+        });
+        return count;
+    }
 
     function addMinutes(date, minutes) {
         return date + minutes * 60000;
@@ -638,7 +726,7 @@ $(document).ready(function () {
     function handleDateFormatting(jsonDate) {
         let json_date = new Date(jsonDate);
         var monthNames = [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            "Jan.", "Feb.", "March", "April", "May", "June", "July", "August", "Sep.", "Oct.", "Nov.", "Dec."];
         var date = json_date.getDate();
         var month = json_date.getMonth();
         var year = json_date.getFullYear();
@@ -665,7 +753,7 @@ $(document).ready(function () {
             }
         }
 
-        var dateWithFullMonthName = monthNames[month] + ". " + pad(date) + ", " + year + ", " + hourUSStyle(hour) + ":" + pad(mins) + " " + getAmPm(hour);
+        var dateWithFullMonthName = monthNames[month] + " " + date + ", " + year + ", " + hourUSStyle(hour) + ":" + pad(mins) + " " + getAmPm(hour);
         return dateWithFullMonthName;
     }
 
