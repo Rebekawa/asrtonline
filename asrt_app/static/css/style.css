@@ -493,7 +493,14 @@ input[type=submit]:hover {
     margin-left: 0.3%;
     border-radius: 3px;
     padding: 6px;
+
 }
+
+button:focus,
+select:focus {
+  outline: none;
+}
+
 
 #closeCaseBtn:hover{
     margin-top: 6px;
@@ -516,6 +523,7 @@ input[type=submit]:hover {
     margin-left: 0.3%;
     border-radius: 3px;
     padding: 6px;
+
 }
 
 #openCaseBtn:hover{

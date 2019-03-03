@@ -46,12 +46,13 @@ $(document).ready(function () {
     }
 
     function showOpenCases() {
-        $("#openCaseButton").css("font-weight", "bold");
-        $("#closeCaseButton").css("font-weight", "100");
-        clearInterval(window.showCloseCase);
+        $("#openCaseButton").css("font-weight","bold");
+        $("#closeCaseButton").css("font-weight","100");
+        $("#openCaseButton").css("text-decoration","underline");
+        $("#closeCaseButton").css("text-decoration","none");
+
+        clearInterval(window.showCloseCase)
         setTimeout(checkForEmegencies, 300);
-
-
         state = 0;
         intensity = 0;
         states();
@@ -117,9 +118,10 @@ $(document).ready(function () {
 
 
     function showCloseCases() {
-        $("#openCaseButton").css("font-weight", "200");
-        $("#closeCaseButton").css("font-weight", "bold");
-
+        $("#openCaseButton").css("font-weight","100");
+        $("#closeCaseButton").css("font-weight","bold");
+        $("#openCaseButton").css("text-decoration","none");
+        $("#closeCaseButton").css("text-decoration","underline");
         clearInterval(window.showOpenCase)
 
         state = 1;
