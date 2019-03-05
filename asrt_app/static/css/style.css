@@ -69,21 +69,29 @@ body{
     display: flex;
     flex-direction: row;
 }
-.audioPanel{
+.panel{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 3%;
+    margin-right: 4%;
 
 }
-.audio-header{
+.panel-header{
     margin: 0;
     font-size: 15px;
     font-weight: bold;
     color: #003049;
     margin-left: 0.75%;
     margin-top: 0.5%;
-    margin-bottom: 10%;
+    margin-bottom: 5px;
+}
+.audioBtns a{
+    color: white;
+}
+
+.audioBtns:hover a{
+    color: #003049;
 }
 
 .audioBtns{
@@ -578,4 +586,81 @@ select:focus {
     -moz-transition: right 4s ease-in;
     color: red;
 }
-  
+
+#analyticsPanelContainer{
+    position: absolute;
+    height: 90vh;
+    width: 100%;
+    top: 11%;
+    background-color: white;
+    z-index: 12;
+    display: none;
+}
+
+.topAnalyticsWindowBar{
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    height: 22px;
+    width: 100%;
+    border-bottom: thin darkgray solid;
+}
+
+#closeAnalyticsBtn{
+    margin-right: 0.5%;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+}
+
+.bottomAnalyticsWindowBar{
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.1em;
+    background: rgb(252, 252, 252);
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.analyticsBtn{
+    border: none;
+    width: 8%;
+    margin-left: 2%;
+    background: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.analyticsBtn:hover{
+    bottom:0;
+    border: none;
+    width: 8%;
+    margin-left: 2%;
+    background: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.analyticsDropDown{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chartContainer{
+    margin: 10px auto;
+    width: 400px;
+}
+
+.chartsContainer{
+    margin-top: 8%;
+    display: flex;
+    flex-direction: flex;
+    justify-content: space-around;
+}

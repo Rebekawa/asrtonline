@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     var state = 0;
     var intensity = 0;
 
@@ -20,6 +19,17 @@ $(document).ready(function () {
         $("#low").click(showLow);
         $("#all").click(showAll);
         $(".box").click(showDescription)
+        $("#analyticsButton").click(showAnalyticsPanel);
+        $("#closeAnalyticsBtn").click(hideAnalyticsPanel);
+        $(".analyticsBtn").click(selectAnXAxis);
+    }
+
+    function showAnalyticsPanel(){
+        $("#analyticsPanelContainer").css("display","block");
+    }
+
+    function hideAnalyticsPanel(){
+        $("#analyticsPanelContainer").css("display","none");
     }
 
     function states() {
@@ -143,11 +153,8 @@ $(document).ready(function () {
                     $(".box").remove();
 
 
-                    ;
                     for (var i = 0; i < json.length; i++) {
                         json_data = json[i]["fields"]
-
-
 
 
                         tr = $('<fieldset/>');
@@ -162,8 +169,6 @@ $(document).ready(function () {
                         tr.append("<div class='case_description'>" + json_data.case_description + "</div>");
                         tr.append("<div class='jsonDate'>" + json_data.date + "</div>");
                         $('.openCases').append(tr);
-
-
 
                     }
                     createElements();
@@ -290,7 +295,7 @@ $(document).ready(function () {
 
     function checkForEmegencies() {
         let timeNow = + new Date();
-        const minutesSpan = 30;
+        const minutesSpan = 100;
         let minTimeRange = substractMinutes(timeNow, minutesSpan / 2);
         let maxTimeRange = addMinutes(timeNow, minutesSpan / 2);
         let postsArray = $(".open");
@@ -299,7 +304,7 @@ $(document).ready(function () {
         }
         let postsWithinMinutesSpan = [];
         let location = "";
-        for (var i = 0; i < postsArray.length - 1; i++) {
+        for (var i = 0; i < postsArray.length; i++) {
             let postTime = convertJsonDateToNumOfSecs(postsArray[i].childNodes[8].innerHTML) * 1000;
             if (minTimeRange < postTime && postTime < maxTimeRange) {
                 location = postsArray[i].childNodes[5].innerHTML;
@@ -323,6 +328,9 @@ $(document).ready(function () {
 
     function postsWithinRadius(radius, postsArray) {
         posts = [];
+        if(postsArray.length < 1){
+            return;
+        }
         posts.push(postsArray[0].childNodes[1].innerHTML);
         for (var i = 0; i < postsArray.length - 1; i++) {
             let coordinatesFocus = JSON.parse(postsArray[i].childNodes[6].innerHTML);
@@ -382,6 +390,9 @@ $(document).ready(function () {
 
     function countThisEvent(eventName, relevantPosts) {
         let count = 0;
+        if(relevantPosts== undefined){
+            return;
+        }
         relevantPosts.forEach(function (post) {
             if (post == eventName) {
                 count = count + 1;
@@ -761,5 +772,8 @@ $(document).ready(function () {
 
     //https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm
 
-
+    function selectAnXAxis(event){
+        $(".analyticsBtn").css("text-decoration",'none');
+        event.target.style.textDecoration = 'underline';
+    }
 });

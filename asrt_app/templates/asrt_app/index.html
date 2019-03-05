@@ -8,7 +8,8 @@
 
 {% if user.is_authenticated %}
 
-<div class="notification-slider">
+</div>
+    <div class="notification-slider">
 </div>
 
 <div class="container">
@@ -57,8 +58,12 @@
             </div>
             <div class="rightSideContent">
                 <div class="topRowTools">
-                    <div class="audioPanel">
-                        <h3 class="audio-header">Audio</h3>
+                    <div class="panel">
+                        <h3 class="panel-header">Analytics</h3>
+                        <button id="analytics" class="audioBtns"><a class="" href="/analytics/"><i class="far fa-chart-bar"></i></a></button>  
+                    </div>
+                    <div class="panel">
+                        <h3 class="panel-header">Audio</h3>
                         <button id="startRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt"></i></button>
                         <button id="stopRecordingButton" class="audioBtns"><i class="fas fa-microphone-alt-slash"></i></button>
                     </div>
