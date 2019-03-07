@@ -357,6 +357,9 @@ input[type=submit]:hover {
     width: 400px;
     height: 246px;
     border: 5px #333 solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #videoElement {

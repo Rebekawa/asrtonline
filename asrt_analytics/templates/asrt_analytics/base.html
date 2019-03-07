@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 
 <html lang="en">
 
@@ -400,31 +400,31 @@
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
-                                                <div class="image">
+                                                <!-- <div class="image">
                                                     <a href="#">
                                                         <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                                     </a>
-                                                </div>
-                                                <div class="content">
+                                                </div> -->
+                                                <!-- <div class="content"> -->
                                                     <h5 class="name">
                                                         <a href="#">{{ user.get_username }}</a>
                                                     </h5>
-                                                    <span class="email">{{ user.get_email }}</span>
-                                                </div>
+                                                    <!-- <span class="email">{{ user.get_email }}</span> -->
+                                                <!-- </div> -->
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                    <a href="/admin/">
+                                                        <i class="zmdi zmdi-account"></i>Admin</a>
                                                 </div>
-                                                <div class="account-dropdown__item">
+                                                <!-- <div class="account-dropdown__item">
                                                     <a href="#">
                                                         <i class="zmdi zmdi-settings"></i>Setting</a>
                                                 </div>
                                                 <div class="account-dropdown__item">
                                                     <a href="#">
                                                         <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             {% if user.is_authenticated %}
                                             <div class="account-dropdown__footer">
@@ -453,7 +453,7 @@
 
     </div>
     <!-- Example-->
-    <script src="{% static './analytics/js/base.js'%}"></script>
+    <!-- <script src="{% static './analytics/js/base.js'%}"></script> -->
     <!-- Jquery JS-->
     <script src="{% static './analytics/vendor/jquery-3.2.1.min.js'%}"></script>
     <!-- Bootstrap JS-->
@@ -472,6 +472,7 @@
     <script src="{% static './analytics/vendor/select2/select2.min.js'%}"></script>
     <!-- Main JS-->
     <script src="{% static './analytics/js/main.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 </body>
 

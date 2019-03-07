@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from .models import Post
+from .models import Post, Alert
 from django.views.decorators.csrf import csrf_exempt
 import datetime
 from django.contrib.auth import logout
@@ -175,4 +175,24 @@ def api_change_event_status(request, case_num, case_stat):
     post.case_stat = new_case_status
     post.save()
     return HttpResponseRedirect('/')
+
+
+def saveAlert(request):
+    data_received = json.loads(request.POST.get("data"))
+    print(data_received)
+    alert_type_ = data_received["alert_type"]
+    print(alert_type_)
+    location = data_received["location"]
+    print(location)
+    new_alert = Alert(alert_type=alert_type_, location=location)
+    new_alert.save()
+
+    response_data = {}
+    try:
+        response_data["result"] = "saving an alert was a success"
+        response_data["message"] = "hooray!"
+    except:
+        response_data["result"] = "total faliure on save"
+        response_data["message"] = "redo!"
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
 

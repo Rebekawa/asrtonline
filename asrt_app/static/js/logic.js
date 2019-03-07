@@ -21,15 +21,15 @@ $(document).ready(function () {
         $(".box").click(showDescription)
         $("#analyticsButton").click(showAnalyticsPanel);
         $("#closeAnalyticsBtn").click(hideAnalyticsPanel);
-        $(".analyticsBtn").click(selectAnXAxis);
+        $(".box").click(setVideo);
     }
 
-    function showAnalyticsPanel(){
-        $("#analyticsPanelContainer").css("display","block");
+    function showAnalyticsPanel() {
+        $("#analyticsPanelContainer").css("display", "block");
     }
 
-    function hideAnalyticsPanel(){
-        $("#analyticsPanelContainer").css("display","none");
+    function hideAnalyticsPanel() {
+        $("#analyticsPanelContainer").css("display", "none");
     }
 
     function states() {
@@ -56,10 +56,10 @@ $(document).ready(function () {
     }
 
     function showOpenCases() {
-        $("#openCaseButton").css("font-weight","bold");
-        $("#closeCaseButton").css("font-weight","100");
-        $("#openCaseButton").css("text-decoration","underline");
-        $("#closeCaseButton").css("text-decoration","none");
+        $("#openCaseButton").css("font-weight", "bold");
+        $("#closeCaseButton").css("font-weight", "100");
+        $("#openCaseButton").css("text-decoration", "underline");
+        $("#closeCaseButton").css("text-decoration", "none");
 
         clearInterval(window.showCloseCase)
         setTimeout(checkForEmegencies, 300);
@@ -103,6 +103,7 @@ $(document).ready(function () {
                     createElements();
                     states();
                     analyzePosts();
+                    initializeClicks();
                     $(".open").css("display", "block");
                     $(".close").css("display", "none");
 
@@ -128,10 +129,10 @@ $(document).ready(function () {
 
 
     function showCloseCases() {
-        $("#openCaseButton").css("font-weight","100");
-        $("#closeCaseButton").css("font-weight","bold");
-        $("#openCaseButton").css("text-decoration","none");
-        $("#closeCaseButton").css("text-decoration","underline");
+        $("#openCaseButton").css("font-weight", "100");
+        $("#closeCaseButton").css("font-weight", "bold");
+        $("#openCaseButton").css("text-decoration", "none");
+        $("#closeCaseButton").css("text-decoration", "underline");
         clearInterval(window.showOpenCase)
 
         state = 1;
@@ -174,6 +175,7 @@ $(document).ready(function () {
                     createElements();
                     states();
                     analyzePosts();
+                    initializeClicks();
                     $(".close").css("display", "block");
                     $(".open").css("display", "none");
 
@@ -295,7 +297,7 @@ $(document).ready(function () {
 
     function checkForEmegencies() {
         let timeNow = + new Date();
-        const minutesSpan = 100;
+        const minutesSpan = 30;
         let minTimeRange = substractMinutes(timeNow, minutesSpan / 2);
         let maxTimeRange = addMinutes(timeNow, minutesSpan / 2);
         let postsArray = $(".open");
@@ -328,17 +330,17 @@ $(document).ready(function () {
 
     function postsWithinRadius(radius, postsArray) {
         posts = [];
-        if(postsArray.length < 1){
+        if (postsArray.length < 1) {
             return;
         }
         posts.push(postsArray[0].childNodes[1].innerHTML);
         for (var i = 0; i < postsArray.length - 1; i++) {
             let coordinatesFocus = JSON.parse(postsArray[i].childNodes[6].innerHTML);
-            let coordinatesComparable = JSON.parse(postsArray[i+1].childNodes[6].innerHTML);
-            
+            let coordinatesComparable = JSON.parse(postsArray[i + 1].childNodes[6].innerHTML);
+
             let distance = getDistance(coordinatesFocus[1], coordinatesFocus[0], coordinatesComparable[1], coordinatesComparable[0]);
             if (distance < radius) {
-                posts.push(postsArray[i+1].childNodes[1].innerHTML)
+                posts.push(postsArray[i + 1].childNodes[1].innerHTML)
             }
 
         }
@@ -358,39 +360,78 @@ $(document).ready(function () {
         return $d;
     }
 
+    let fireAlertCount = 0;
+    let burglaryAlertCount = 0;
+    setInterval(function(){ 
+        fireAlertCount = 0;
+        burglaryAlertCount = 0;
+    }, (60*15*1000));
+
     function checkIfAlertIsWarranted(event) {
         const notificationBox = $(".notification-slider");
-        let notification=$("<div></div>");
+        let notification = $("<div></div>");
         if (event["dog_barking"] >= 3 && event["baby_cry"] >= 3 && event["glass_break"] >= 3) {
-            notification = $(`<span>High chances of burglary at ${event["location"]}</span>`);
-        }else if(event["dog_barking"] >= 2 && event["baby_cry"] >= 2 && event["glass_break"] >= 2){
-            notification = $(`<span>Medium chances burglary at ${event["location"]}</span>`);
-        }else if(event["dog_barking"] >= 1 && event["baby_cry"] >= 1 && event["glass_break"] >= 1){
-            notification = $(`<span>Low chances of burglary at ${event["location"]}</span>`);
-        }else if(event["smoke_detector"]>2){
-            notification = $(`<span>Local fire reported at ${event["location"]}</span>`);
+            if (burglaryAlertCount <1) {
+                burglaryAlertCount += 1; 
+                notification = $(`<span>High chances of burglary at ${event["location"]}</span>`);
+                let data = {
+                    "alert_type": "Burglary",
+                    "location": event["location"]
+                }
+                saveAlert(data);
+            }
+        } else if (event["dog_barking"] >= 2 && event["baby_cry"] >= 2 && event["glass_break"] >= 2) {
+            if (burglaryAlertCount <1) {
+                burglaryAlertCount +=1; 
+                notification = $(`<span>Medium chances burglary at ${event["location"]}</span>`);
+                let data = {
+                    "alert_type": "Burglary",
+                    "location": event["location"]
+                }
+                saveAlert(data);
+            }
+        } else if (event["dog_barking"] >= 1 && event["baby_cry"] >= 1 && event["glass_break"] >= 1) {
+            if (burglaryAlertCount <1) {
+                burglaryAlertCount +=1 ; 
+                notification = $(`<span>Low chances of burglary at ${event["location"]}</span>`);
+                let data = {
+                    "alert_type": "Burglary",
+                    "location": event["location"]
+                }
+                saveAlert(data);
+            }
+        } else if (event["smoke_detector"] > 2) {
+            if (fireAlertCount <1) {
+                fireAlertCount += 1;
+                notification = $(`<span>Local fire reported at ${event["location"]}</span>`);
+                let data = {
+                    "alert_type": "Fire",
+                    "location": event["location"]
+                }
+                saveAlert(data);
+            }
         }
-        if(notification.innerHTML==""){
+        if (notification.innerHTML == "") {
             return;
         }
         notification.addClass('notification-start');
-            notificationBox.append(notification);
-            notification.animate({
-                left: '120%',
-                display: 'none'
-            }, {
-                    duration: 20000,
-                    easing: 'linear',
-                    queue: false,
-                    done: function () {
-                        $(this).remove()
-                    }
-                });
+        notificationBox.append(notification);
+        notification.animate({
+            left: '120%',
+            display: 'none'
+        }, {
+                duration: 20000,
+                easing: 'linear',
+                queue: false,
+                done: function () {
+                    $(this).remove()
+                }
+            });
     }
 
     function countThisEvent(eventName, relevantPosts) {
         let count = 0;
-        if(relevantPosts== undefined){
+        if (relevantPosts == undefined) {
             return;
         }
         relevantPosts.forEach(function (post) {
@@ -772,8 +813,46 @@ $(document).ready(function () {
 
     //https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm
 
-    function selectAnXAxis(event){
-        $(".analyticsBtn").css("text-decoration",'none');
-        event.target.style.textDecoration = 'underline';
+
+    var csrftoken = Cookies.get('csrftoken');
+    console.log("This is csrf token" + csrftoken);
+    function saveAlert(data) {
+        console.log("type of song data is" + (typeof data));
+        $.ajax({
+            type: "POST",
+            url: '/api/savealert/',
+            data: {
+                data: JSON.stringify(data)
+            },
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            success: function () {
+                console.log("success saving alert!");
+            },
+            error: function () {
+                console.log("something went wrong when saving alert");
+            },
+        });
+    }
+
+    function setVideo(e){
+        $('iframe').attr('src', '')
+        if ( e.target.childNodes[1].innerHTML == "smoke_detector" ){
+            $('iframe').attr('src', 'https://www.youtube.com/embed/alzYI_kXvX8')
+        }else if ( e.target.childNodes[1].innerHTML == "doorbell"  ){
+            $('iframe').attr('src', 'https://www.youtube.com/embed/eev9tyePDnc')
+        }else if ( e.target.childNodes[1].innerHTML == "glass_break" ){
+            $('iframe').attr('src', 'https://www.youtube.com/embed/zhlIGDclrXc')
+        }else if ( e.target.childNodes[1].innerHTML == "microwave"  ){
+            $('iframe').attr('src', 'https://www.youtube.com/embed/gbShFynphNE')
+        }else if (e.target.childNodes[1].innerHTML == "emergency_broadcast_system" ){
+            $('iframe').attr('src', 'https://www.youtube.com/embed/jTUgh3HJgQU')
+        }else if (e.target.childNodes[1].innerHTML == "baby_cry"){
+            $('iframe').attr('src', 'https://www.youtube.com/embed/CDzMgI4_mbA')
+        }else{
+            $('iframe').attr('src', 'https://www.youtube.com/embed/9KbCp0bGbdQ')
+        }
+        $('iframe')[0].src += "?autoplay=1";
     }
 });
