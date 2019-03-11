@@ -87,7 +87,7 @@ $(document).ready(function () {
                         json_data = json[i]["fields"]
                         tr = $('<fieldset/>');
                         tr.addClass('box');
-                        tr.append("<legend class='date'>" + handleDateFormatting(json_data.date) + "</legend>");
+                        tr.append("<legend class='legendDateBox date'>" + handleDateFormatting(json_data.date) + "</legend>");
                         tr.append("<span class='event_type'>" + json_data.event_type + "</span>");
                         tr.append("<div class='cust_num'>" + json_data.cust_num + "</div>");
                         tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
@@ -853,6 +853,28 @@ $(document).ready(function () {
         }else{
             $('iframe').attr('src', 'https://www.youtube.com/embed/9KbCp0bGbdQ')
         }
-        $('iframe')[0].src += "?autoplay=1";
+        $('iframe')[0].src += "?autoplay=1&showinfo=0";
     }
+
+
+
+    function launchDemo() {
+        console.log("went into demo (on front end)")
+        $.ajax({
+            type: "POST",
+            url: '/api/launchdemo/',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            success: function () {
+                console.log("successly launched demo");
+            },
+            error: function () {
+                console.log("something went wrong when launching demo");
+            },
+        });
+    }
+
+    //This controls wheather or not demo will start launcing
+    // setTimeout(launchDemo, 3000);
 });

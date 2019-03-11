@@ -11,6 +11,8 @@ from faker import Faker
 from django.forms.models import model_to_dict
 from django.core import serializers
 from random import randint
+from threading import Timer
+import time
 
 fake = Faker()
 fake2 = Faker()
@@ -142,7 +144,6 @@ def api_push(request):
     location = locationsArr[randint(0, len(locationsArr)-1)]
     address = location['address']
     coordinates = json.dumps(location['coordinates'])
-    print(event_type, cust_num, case_stat, case_num, location['address'])
     model = Post(event_type=event_type, cust_num=cust_num, case_stat=case_stat, case_num=case_num,date=datetime.date.today(), address=address, coordinates=coordinates)
     model.save()
     return json.dumps("success!")
@@ -154,19 +155,22 @@ def api_get(request):
     data = serializers.serialize('json', posts)
     return JsonResponse(data, safe=False)
 
+@csrf_exempt
+def api_get_alerts(request):
+    alerts = Alert.objects.all()
+    data = serializers.serialize('json', alerts)
+    return JsonResponse(data, safe=False)
 
 
 @csrf_exempt
 def api_update(request, case_num):
     post = Post.objects.get(case_num=case_num)
     post.case_description = request.POST.get('case_description')
-    print("this is case description from form as inputed" + request.POST.get('case_description'))
     post.save()
     return HttpResponseRedirect('/')
 
 @csrf_exempt
 def api_change_event_status(request, case_num, case_stat):
-    print("this is change event status: case num - "+str(case_num)+"  case status: "+str(case_stat))
     if case_stat == "open":
         new_case_status = "close"
     else: 
@@ -179,11 +183,8 @@ def api_change_event_status(request, case_num, case_stat):
 
 def saveAlert(request):
     data_received = json.loads(request.POST.get("data"))
-    print(data_received)
     alert_type_ = data_received["alert_type"]
-    print(alert_type_)
     location = data_received["location"]
-    print(location)
     new_alert = Alert(alert_type=alert_type_, location=location)
     new_alert.save()
 
@@ -195,4 +196,64 @@ def saveAlert(request):
         response_data["result"] = "total faliure on save"
         response_data["message"] = "redo!"
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@csrf_exempt
+def api_push_demo(request):
+    eventsForDemo = [
+        {
+            "event_type": "glass_break",
+            "cust_num": fake2.ipv4(),
+            "address": "1 Mission Way, Tenafly NJ 07670 USA",
+            "coordinates": [-73.961128, 40.909081],
+        },
+        {
+            "event_type": "dog_barking",
+            "cust_num": fake2.ipv4(),
+            "address": "1 Mission Way, Tenafly NJ 07670 USA",
+            "coordinates": [-73.961128, 40.909081],
+        },
+        {
+            "event_type": "baby_cry",
+            "cust_num": fake2.ipv4(),
+            "address": "1 Mission Way, Tenafly NJ 07670 USA",
+            "coordinates": [-73.961128, 40.909081],
+        },
+        {
+            "event_type": "dog_barking",
+            "cust_num": fake2.ipv4(),
+            "address": "1 Mission Way, Tenafly NJ 07670 USA",
+            "coordinates": [-73.961128, 40.909081],
+        },
+        {
+            "event_type": "baby_cry",
+            "cust_num": fake2.ipv4(),
+            "address": "1 Mission Way, Tenafly NJ 07670 USA",
+            "coordinates": [-73.961128, 40.909081],
+        },
+        {
+            "event_type": "glass_break",
+            "cust_num": fake2.ipv4(),
+            "address": "1 Mission Way, Tenafly NJ 07670 USA",
+            "coordinates": [-73.961128, 40.909081],
+        },
+        {
+            "event_type": "dog_barking",
+            "cust_num": fake2.ipv4(),
+            "address": "1 Mission Way, Tenafly NJ 07670 USA",
+            "coordinates": [-73.961128, 40.909081],
+        },
+
+    ]
+    save_demo_events = Timer(3.0, saveDemoEvents, eventsForDemo)
+    save_demo_events.start()
+    return json.dumps("success!")
+
+
+def saveDemoEvents(*event_list):
+    for event in event_list:
+        model = Post(event_type=event["event_type"], cust_num=event["cust_num"], case_stat="open", address=event["address"], coordinates=event["coordinates"])
+        model.save()
+        time.sleep(8.0)
+
 

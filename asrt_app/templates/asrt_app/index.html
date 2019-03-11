@@ -32,7 +32,7 @@
         {% for Post in alerts %}
 
         <fieldset value={{ Post.case_num }} class="box">
-            <legend class="date">{{ Post.date }}</legend>
+            <legend class="legendDateBox date">{{ Post.date }}</legend>
             <span class="event_type">{{ Post.event_type }}</span>
             <div class="cust_num">{{ Post.cust_num }}</div>
             <div class="case_stat">{{ Post.case_stat }}</div>
@@ -80,6 +80,8 @@
                 </div>
                 <div class="videoContainer">
                     <iframe width="400" height="246">
+
+
                     </iframe>
                 </div>
             </div>
@@ -102,13 +104,7 @@
 
 
         </div>
-
-
-
-
     </div>
-
-
 </div>
 
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from asrt_app.models import Post
+from asrt_app.models import Post, Alert
 import json
 from datetime import timezone
 # Create your views here.
@@ -22,6 +22,7 @@ def cleanDuplicateCases(cases ,event_type):
 
 def index(request):
     cases = Post.objects.all()
+    alerts = Alert.objects.all()
     cleanDuplicateCases(cases, "baby_cry")
     all_open_cases = Post.objects.filter(case_stat="open")
     all_close_cases = Post.objects.filter(case_stat="close")
@@ -29,6 +30,8 @@ def index(request):
     context = {
         "all_cases": cases,
         "all_cases_count": len(cases),
+        "all_alerts": alerts,
+        "all_alerts_count": len(alerts),
         "open_cases": all_open_cases,
         "all_open_cases_count": len(all_open_cases),
         "close_cases": all_close_cases,

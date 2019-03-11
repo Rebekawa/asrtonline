@@ -3,6 +3,7 @@
   // USE STRICT
   "use strict";
   const monthsNamesDict = { 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec", 1: "Jan", 2: "Feb", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August" }
+  const daysNamesDict = { 1: "Sun", 2: "Mon", 3: "Tues", 4: "Wed", 5: "Thurs", 6: "Fri", 7: "Sat" }
 
   function getPastSevenMonths() {
     var day = new Date();
@@ -20,6 +21,23 @@
     return monthsNames;
   }
 
+  function getPastSevenDays() {
+    var today = new Date();
+    var day = today.getDay() + 1;
+    let daysInts = [];
+    let daysNames = [];
+    for (var i = 0; i < 7; i++) {
+      if (day < 1) {
+        day = 7
+      }
+      daysInts.push(day)
+      day = day - 1;
+    }
+    daysNames = daysInts.map(x => daysNamesDict[x]);
+    return daysNames;
+  }
+
+
   function getCountOfCasesPerMonth(month_X, data) {
     var today = new Date();
     var year = today.getFullYear();
@@ -28,42 +46,80 @@
       let dataPoint = data[i];
       let dataTime = new Date(dataPoint.date);
       if (dataTime.getFullYear() == year) {
-        console.log(monthsNamesDict[dataTime.getMonth() + 1])
         if (month_X == monthsNamesDict[dataTime.getMonth() + 1]) {
           count += 1;
         }
       }
     }
-    console.log(count)
+    return count;
+
+  }
+
+  function getCountOfCasesPerDay(day_X, data) {
+    var day_of_interest = new Date(day_X).getDate();
+    let count = 0;
+    for (var i = 0; i < data.length; i++) {
+      let dataPoint = data[i];
+      let dataTime = new Date(dataPoint.date);
+      if (dataTime.getDate() == day_of_interest) {
+        count += 1;
+
+      }
+    }
     return count;
 
   }
 
   let pastSevenMonths = getPastSevenMonths();
-  $.getJSON("/api/get", function (data) {
-    var jsonData = JSON.parse(data).reverse();
 
-    let incomingData = [];
-    for (var i = 0; i < jsonData.length; i++){
-      incomingData.push(jsonData[i]["fields"]);
-    }
-    myChart1.data.datasets[0].data = [getCountOfCasesPerMonth(pastSevenMonths[0], incomingData), getCountOfCasesPerMonth(pastSevenMonths[1], incomingData), getCountOfCasesPerMonth(pastSevenMonths[2], incomingData), getCountOfCasesPerMonth(pastSevenMonths[3], incomingData), getCountOfCasesPerMonth(pastSevenMonths[4], incomingData), getCountOfCasesPerMonth(pastSevenMonths[5], incomingData), getCountOfCasesPerMonth(pastSevenMonths[6], incomingData)].reverse();;
-    myChart1.update();
-
-  });
+  // fetchDataOnClick();
+  //cases Ajax
+  function fetchDataOnClick(){
+    $.getJSON("/api/get", function (data) {
+      var jsonData = JSON.parse(data).reverse();
   
+      let incomingData = [];
+      for (var i = 0; i < jsonData.length; i++) {
+        incomingData.push(jsonData[i]["fields"]);
+      }
+      incoming_cases_chart.data.datasets[0].data = [getCountOfCasesPerMonth(pastSevenMonths[0], incomingData), getCountOfCasesPerMonth(pastSevenMonths[1], incomingData), getCountOfCasesPerMonth(pastSevenMonths[2], incomingData), getCountOfCasesPerMonth(pastSevenMonths[3], incomingData), getCountOfCasesPerMonth(pastSevenMonths[4], incomingData), getCountOfCasesPerMonth(pastSevenMonths[5], incomingData), getCountOfCasesPerMonth(pastSevenMonths[6], incomingData)].reverse();
+      incoming_cases_chart.update();
+  
+      var today = new Date();
+      cases_daily_chart.data.datasets[0].data = [getCountOfCasesPerDay(today, incomingData), getCountOfCasesPerDay(today.setDate(today.getDate() - 1), incomingData), getCountOfCasesPerDay(today.setDate(today.getDate() - 2), incomingData), getCountOfCasesPerDay(today.setDate(today.getDate() - 3), incomingData), getCountOfCasesPerDay(today.setDate(today.getDate() - 4), incomingData), getCountOfCasesPerDay(today.setDate(today.getDate() - 5), incomingData), getCountOfCasesPerDay(today.setDate(today.getDate() - 6), incomingData)].reverse();
+      cases_daily_chart.update();
+      var arr = cases_daily_chart.data.datasets[0].data;
+      var sum = arr.reduce(function (a, b) { return a + b; }, 0);
+      $("#casesTodayChartHeader").text(sum)
+    });
+  
+    //Alerts Ajax
+    $.getJSON("/api/getalerts", function (data) {
+      var jsonData = JSON.parse(data).reverse();
+  
+      let incomingData = [];
+      for (var i = 0; i < jsonData.length; i++) {
+        incomingData.push(jsonData[i]["fields"]);
+      }
+      incoming_alerts_chart.data.datasets[0].data = [getCountOfCasesPerMonth(pastSevenMonths[0], incomingData), getCountOfCasesPerMonth(pastSevenMonths[1], incomingData), getCountOfCasesPerMonth(pastSevenMonths[2], incomingData), getCountOfCasesPerMonth(pastSevenMonths[3], incomingData), getCountOfCasesPerMonth(pastSevenMonths[4], incomingData), getCountOfCasesPerMonth(pastSevenMonths[5], incomingData), getCountOfCasesPerMonth(pastSevenMonths[6], incomingData)].reverse();;
+      incoming_alerts_chart.update();
+  
+    });
+  }
+  
+
   try {
     //WidgetChart 1
     var ctx = document.getElementById("widgetChart1");
     if (ctx) {
       ctx.height = 130;
-      var myChart1 = new Chart(ctx, {
+      var incoming_cases_chart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: getPastSevenMonths().reverse(),
           type: 'line',
           datasets: [{
-            data: [0,0,0,0,0,0],
+            data: [296, 314, 201, 415, 501, 555],
             label: 'Dataset',
             backgroundColor: 'rgba(255,255,255,.1)',
             borderColor: 'rgba(255,255,255,.55)',
@@ -123,13 +179,13 @@
     var ctx = document.getElementById("widgetChart2");
     if (ctx) {
       ctx.height = 130;
-      var myChart = new Chart(ctx, {
+      var incoming_alerts_chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          labels: getPastSevenMonths().reverse(),
           type: 'line',
           datasets: [{
-            data: [1, 18, 9, 17, 34, 22],
+            data: [15, 7, 22, 9, 65, 12],
             label: 'Dataset',
             backgroundColor: 'transparent',
             borderColor: 'rgba(255,255,255,.55)',
@@ -194,13 +250,13 @@
     var ctx = document.getElementById("widgetChart3");
     if (ctx) {
       ctx.height = 130;
-      var myChart = new Chart(ctx, {
+      var cases_daily_chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          labels: getPastSevenDays().reverse(),
           type: 'line',
           datasets: [{
-            data: [65, 59, 84, 84, 51, 55],
+            data: [10, 14, 31, 15, 26, 17],
             label: 'Dataset',
             backgroundColor: 'transparent',
             borderColor: 'rgba(255,255,255,.55)',
@@ -302,8 +358,8 @@
     const brandService = 'rgba(0,173,95,0.8)'
 
     var elements = 10
-    var data1 = [52, 60, 55, 50, 65, 80, 57, 70, 105, 115]
-    var data2 = [102, 70, 80, 100, 56, 53, 80, 75, 65, 90]
+    var cases = [325, 512, 444, 260, 296, 314, 201, 415, 501, 555]
+    var alerts = [19, 21, 23, 12, 15, 7, 22, 9, 65, 12]
 
     var ctx = document.getElementById("recent-rep-chart");
     if (ctx) {
@@ -311,24 +367,24 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', ''],
+          labels: ['July', 'August', 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April'],
           datasets: [
             {
-              label: 'My First dataset',
+              label: 'Cases',
               backgroundColor: brandService,
               borderColor: 'transparent',
-              pointHoverBackgroundColor: '#fff',
+              pointHoverBackgroundColor: brandService,
               borderWidth: 0,
-              data: data1
+              data: cases
 
             },
             {
-              label: 'My Second dataset',
+              label: 'Alerts',
               backgroundColor: brandProduct,
-              borderColor: 'transparent',
-              pointHoverBackgroundColor: '#fff',
+              borderColor: 'black',
+              pointHoverBackgroundColor: brandProduct,
               borderWidth: 0,
-              data: data2
+              data: alerts
 
             }
           ]
@@ -354,8 +410,8 @@
               ticks: {
                 beginAtZero: true,
                 maxTicksLimit: 5,
-                stepSize: 50,
-                max: 150,
+                stepSize: 150,
+                max: 900,
                 fontFamily: "Poppins",
                 fontSize: 12
               },
@@ -390,7 +446,7 @@
           datasets: [
             {
               label: "My First dataset",
-              data: [60, 40],
+              data: [33, 67],
               backgroundColor: [
                 '#00b5e9',
                 '#fa4251'
@@ -409,8 +465,8 @@
             }
           ],
           labels: [
-            'Products',
-            'Services'
+            'Open',
+            'Closed'
           ]
         },
         options: {
@@ -705,8 +761,8 @@
             }
           ],
           labels: [
-            'Products',
-            'Services'
+            'Open',
+            'Closed'
           ]
         },
         options: {
@@ -749,12 +805,12 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+          labels: ["2011", "2012", "2013", "2014", "2015", "2017", "2018"],
           type: 'line',
           defaultFontFamily: 'Poppins',
           datasets: [{
-            label: "Foods",
-            data: [0, 30, 10, 120, 50, 63, 10],
+            label: "Alerts",
+            data: [99, 112, 156, 193, 176, 188, 213],
             backgroundColor: 'transparent',
             borderColor: 'rgba(220,53,69,0.75)',
             borderWidth: 3,
@@ -763,8 +819,8 @@
             pointBorderColor: 'transparent',
             pointBackgroundColor: 'rgba(220,53,69,0.75)',
           }, {
-            label: "Electronics",
-            data: [0, 50, 40, 80, 40, 79, 120],
+            label: "Cases",
+            data: [3321, 4012, 4576, 4536, 4667, 4873, 5012],
             backgroundColor: 'transparent',
             borderColor: 'rgba(40,167,69,0.75)',
             borderWidth: 3,
@@ -848,11 +904,11 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+          labels: ["2011", "2012", "2013", "2014", "2015", "2017", "2018"],
           type: 'line',
           defaultFontFamily: 'Poppins',
           datasets: [{
-            data: [0, 7, 3, 5, 2, 10, 7],
+            data: [0.5, 0.55, 0.67, 0.58, 0.72, 0.73, 0.77],
             label: "Expense",
             backgroundColor: 'rgba(0,103,255,.15)',
             borderColor: 'rgba(0,103,255,0.5)',
@@ -1164,32 +1220,39 @@
   try {
 
     //pie chart
-    var ctx = document.getElementById("pieChart");
+    var ctx = document.getElementById("pieChart1");
     if (ctx) {
       ctx.height = 200;
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
           datasets: [{
-            data: [45, 25, 20, 10],
+            data: [12, 21, 5, 40, 15, 7],
             backgroundColor: [
               "rgba(0, 123, 255,0.9)",
-              "rgba(0, 123, 255,0.7)",
+              "rgba(0, 123, 255,0.75)",
               "rgba(0, 123, 255,0.5)",
+              "rgba(0, 123, 255,0.35)",
+              "rgba(0, 123, 255,0.2)",
               "rgba(0,0,0,0.07)"
             ],
             hoverBackgroundColor: [
               "rgba(0, 123, 255,0.9)",
-              "rgba(0, 123, 255,0.7)",
+              "rgba(0, 123, 255,0.75)",
               "rgba(0, 123, 255,0.5)",
+              "rgba(0, 123, 255,0.35)",
+              "rgba(0, 123, 255,0.2)",
               "rgba(0,0,0,0.07)"
             ]
 
           }],
           labels: [
-            "Green",
-            "Green",
-            "Green"
+            "baby_cry",
+            "dog_barking",
+            "Emergency_broadcast_sys",
+            "glass_break",
+            "severe_storm",
+            "other",
           ]
         },
         options: {
@@ -1206,6 +1269,166 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
+  }
+  try {
+
+    //pie chart
+    var ctx = document.getElementById("pieChart2");
+    if (ctx) {
+      ctx.height = 200;
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: [45, 25, 5, 9, 16],
+            backgroundColor: [
+              "rgba(255, 70, 51,0.9)",
+              "rgba(255, 70, 51,0.75)",
+              "rgba(255, 70, 51,0.5)",
+              "rgba(255, 70, 51,0.35)",
+              "rgba(255, 70, 51,0.2)",
+            ],
+            hoverBackgroundColor: [
+              "rgba(255, 70, 51,0.9)",
+              "rgba(255, 70, 51,0.75)",
+              "rgba(255, 70, 51,0.5)",
+              "rgba(255, 70, 51,0.35)",
+              "rgba(255, 70, 51,0.2)",
+            ]
+
+          }],
+          labels: [
+            "Local Fire",
+            "Code-Red",
+            "Burglary",
+            "Cry For Help",
+            "Hard Fall"
+          ]
+        },
+        options: {
+          legend: {
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
+          },
+          responsive: true
+        }
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+
+    //pie chart
+    var ctx = document.getElementById("pieChart3");
+    if (ctx) {
+      ctx.height = 200;
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: [57, 22, 6, 10, 3, 2],
+            backgroundColor: [
+              "rgba(51, 125, 155 ,0.9)",
+              "rgba(51, 125, 155, 0.75)",
+              "rgba(51, 125, 155, 0.5)",
+              "rgba(51, 125, 155, 0.35)",
+              "rgba(51, 125, 155, 0.2)",
+              "rgba(51, 125, 155, 0.05)",
+            ],
+            hoverBackgroundColor: [
+              "rgba(51, 125, 155 ,0.9)",
+              "rgba(51, 125, 155, 0.75)",
+              "rgba(51, 125, 155, 0.5)",
+              "rgba(51, 125, 155, 0.35)",
+              "rgba(51, 125, 155, 0.2)",
+              "rgba(51, 125, 155, 0.05)",
+            ]
+
+          }],
+          labels: [
+            "Audio sensor",
+            "Security camera",
+            "Desktop",
+            "Mobile",
+            "Smart watch",
+            "Smart speakers"
+          ]
+        },
+        options: {
+          legend: {
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
+          },
+          responsive: true
+        }
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    var ctx = document.getElementById("pieChart4");
+    if (ctx) {
+      ctx.height = 200;
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: [58, 20, 7, 11, 2, 2],
+            backgroundColor: [
+              "rgba(40, 180, 132, 0.9)",
+              "rgba(40, 180, 132, 0.75)",
+              "rgba(40, 180, 132, 0.5)",
+              "rgba(40, 180, 132, 0.35)",
+              "rgba(40, 180, 132, 0.2)",
+              "rgba(40, 180, 132, 0.05)",
+            ],
+            hoverBackgroundColor: [
+              "rgba(40, 180, 132, 0.9)",
+              "rgba(40, 180, 132, 0.75)",
+              "rgba(40, 180, 132, 0.5)",
+              "rgba(40, 180, 132, 0.35)",
+              "rgba(40, 180, 132, 0.2)",
+              "rgba(40, 180, 132, 0.05)",
+            ]
+
+          }],
+          labels: [
+            "Audio sensor",
+            "Security camera",
+            "Desktop",
+            "Mobile",
+            "Smart watch",
+            "Smart speakers"
+          ]
+        },
+        options: {
+          legend: {
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
+          },
+          responsive: true
+        }
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -1338,10 +1561,59 @@
 (function ($) {
   // USE STRICT
   "use strict";
-
+  $("#map_select_btn").change(changeMapData)
   // Map
-  try {
+  function changeMapData(e) {
+    var vmap = $('#vmap');
+    vmap[0].childNodes[0].remove();
+    vmap[0].childNodes[0].remove();
+    vmap[0].childNodes[0].remove();
+    if (e.target.value == "alerts") {
+      try {
+        if (vmap[0]) {
+          vmap.vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: alerts_data_map,
+            scaleColors: ['#1de9b6', '#03a9f5'],
+            normalizeFunction: 'polynomial'
+          });
+        }
+    
+      } catch (error) {
+        console.log('map is not working')
+        console.log(error);
+      }
+    } else if (e.target.value == "cases") {
+      try {
+        if (vmap[0]) {
+          vmap.vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: cases_data_map,
+            scaleColors: ['#1de9b6', '#03a9f5'],
+            normalizeFunction: 'polynomial'
+          });
+        }
+    
+      } catch (error) {
+        console.log('map is not working')
+        console.log(error);
+      }
+    }
+  }
 
+  try {
     var vmap = $('#vmap');
     if (vmap[0]) {
       vmap.vectorMap({
@@ -1352,13 +1624,14 @@
         selectedColor: '#1de9b6',
         enableZoom: true,
         showTooltip: true,
-        values: sample_data,
+        values: cases_data_map,
         scaleColors: ['#1de9b6', '#03a9f5'],
         normalizeFunction: 'polynomial'
       });
     }
 
   } catch (error) {
+    console.log('map is not working')
     console.log(error);
   }
 

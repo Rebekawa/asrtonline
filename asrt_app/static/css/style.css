@@ -467,6 +467,8 @@ input[type=submit]:hover {
 .box{
     border: thin solid black;
     cursor: pointer;
+    margin-bottom: 2%;
+    margin-top: 2%;
 }
 
 .high{
@@ -666,4 +668,11 @@ select:focus {
     display: flex;
     flex-direction: flex;
     justify-content: space-around;
+}
+
+.legendDateBox{
+    background: white;
+    border-radius: 8px;
+    border: black solid 1px;
+
 }

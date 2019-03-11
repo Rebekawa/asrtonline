@@ -25,7 +25,7 @@
                                     <i class="fas fa-briefcase"></i>
                                 </div>
                                 <div class="text">
-                                    <h2>{{ all_cases_count }}</h2>
+                                    <h2>10,764</h2>
                                     <span>Total Incoming Cases Analyzed</span>
                                 </div>
                             </div>
@@ -40,11 +40,11 @@
                         <div class="overview__inner">
                             <div class="overview-box clearfix">
                                 <div class="icon">
-                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                    <i class="fas fa-exclamation-triangle"></i>
                                 </div>
                                 <div class="text">
-                                    <h2>388,688</h2>
-                                    <span>items solid</span>
+                                    <h2>578</h2>
+                                    <span>Emergency Alerts</span>
                                 </div>
                             </div>
                             <div class="overview-chart">
@@ -61,8 +61,8 @@
                                     <i class="zmdi zmdi-calendar-note"></i>
                                 </div>
                                 <div class="text">
-                                    <h2>1,086</h2>
-                                    <span>this week</span>
+                                    <h2 id="casesTodayChartHeader">156</h2>
+                                    <span>Cases This Week</span>
                                 </div>
                             </div>
                             <div class="overview-chart">
@@ -94,28 +94,28 @@
                 <div class="col-lg-6">
                     <div class="au-card recent-report">
                         <div class="au-card-inner">
-                            <h3 class="title-2">recent reports</h3>
+                            <h3 class="title-2">Recent Cases</h3>
                             <div class="chart-info">
                                 <div class="chart-info__left">
                                     <div class="chart-note">
-                                        <span class="dot dot--blue"></span>
-                                        <span>products</span>
+                                        <span class="dot dot--green"></span>
+                                        <span>Cases</span>
                                     </div>
                                     <div class="chart-note mr-0">
-                                        <span class="dot dot--green"></span>
-                                        <span>services</span>
+                                        <span style="font-weight: 700; color: rgb(8, 79, 8)">-</span>
+                                        <span>Alerts</span>
                                     </div>
                                 </div>
                                 <div class="chart-info__right">
                                     <div class="chart-statis">
                                         <span class="index incre">
                                             <i class="zmdi zmdi-long-arrow-up"></i>25%</span>
-                                        <span class="label">products</span>
+                                        <span class="label">Cases</span>
                                     </div>
                                     <div class="chart-statis mr-0">
                                         <span class="index decre">
                                             <i class="zmdi zmdi-long-arrow-down"></i>10%</span>
-                                        <span class="label">services</span>
+                                        <span class="label">Alerts</span>
                                     </div>
                                 </div>
                             </div>
@@ -128,17 +128,17 @@
                 <div class="col-lg-6">
                     <div class="au-card chart-percent-card">
                         <div class="au-card-inner">
-                            <h3 class="title-2 tm-b-5">char by %</h3>
+                            <h3 class="title-2 tm-b-5">Cases By Current Status (%)</h3>
                             <div class="row no-gutters">
                                 <div class="col-xl-6">
                                     <div class="chart-note-wrap">
                                         <div class="chart-note mr-0 d-block">
                                             <span class="dot dot--blue"></span>
-                                            <span>products</span>
+                                            <span>Open</span>
                                         </div>
                                         <div class="chart-note mr-0 d-block">
                                             <span class="dot dot--red"></span>
-                                            <span>services</span>
+                                            <span>Closed</span>
                                         </div>
                                     </div>
                                 </div>
@@ -153,84 +153,75 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-9">
-                    <h2 class="title-1 m-b-25">Earnings By Items</h2>
+                <div class="col-lg-12">
+                    <h2 class="title-1 m-b-25">Recent Alerts</h2>
                     <div class="table-responsive table--no-card m-b-40">
                         <table class="table table-borderless table-striped table-earning">
                             <thead>
                                 <tr>
-                                    <th>date</th>
-                                    <th>order ID</th>
-                                    <th>name</th>
-                                    <th class="text-right">price</th>
-                                    <th class="text-right">quantity</th>
-                                    <th class="text-right">total</th>
+                                    <th>Date</th>
+                                    <th>Alert ID</th>
+                                    <th>Type</th>
+                                    <th class="text-center">Address</th>
+                                    <th class="text-right">Device</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>2018-09-29 05:57</td>
+                                    <td>2019-01-29 05:57</td>
                                     <td>100398</td>
-                                    <td>iPhone X 64Gb Grey</td>
-                                    <td class="text-right">$999.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$999.00</td>
+                                    <td>Burglary</td>
+                                    <td class="text-center">3685 Breezewood Court, Manter, KS, 67862 USA</td>
+                                    <td class="text-right">Audio sensor</td>
                                 </tr>
                                 <tr>
-                                    <td>2018-09-28 01:22</td>
+                                    <td>2019-01-28 01:22</td>
                                     <td>100397</td>
-                                    <td>Samsung S8 Black</td>
-                                    <td class="text-right">$756.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$756.00</td>
+                                    <td>Cry for Help</td>
+                                    <td class="text-center">6 place brugmann 1050, brussels, Belgium</td>
+                                    <td class="text-right">Security Camera</td>
                                 </tr>
                                 <tr>
-                                    <td>2018-09-27 02:12</td>
+                                    <td>2019-01-27 02:12</td>
                                     <td>100396</td>
-                                    <td>Game Console Controller</td>
-                                    <td class="text-right">$22.00</td>
-                                    <td class="text-right">2</td>
-                                    <td class="text-right">$44.00</td>
+                                    <td>Fire</td>
+                                    <td class="text-center">3616 Radford Street, Louisville, KY, 40242 USA</td>
+                                    <td class="text-right">Mobile</td>
                                 </tr>
                                 <tr>
-                                    <td>2018-09-26 23:06</td>
+                                    <td>2019-01-26 23:06</td>
                                     <td>100395</td>
-                                    <td>iPhone X 256Gb Black</td>
-                                    <td class="text-right">$1199.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$1199.00</td>
+                                    <td>Burglary</td>
+                                    <td class="text-center">515 Quiet Valley Lane, Sherman Oaks, CA, 91403 USA</td>
+                                    <td class="text-right">Security Camera</td>
                                 </tr>
                                 <tr>
-                                    <td>2018-09-25 19:03</td>
+                                    <td>2019-01-25 19:03</td>
+                                    <td>100394</td>
+                                    <td>Burglary</td>
+                                    <td class="text-center">4792 Ashton Lane, Austin, TX, 78704 USA</td>
+                                    <td class="text-right">Mobile</td>
+                                </tr>
+                                <tr>
+                                    <td>2019-01-15 05:57</td>
                                     <td>100393</td>
-                                    <td>USB 3.0 Cable</td>
-                                    <td class="text-right">$10.00</td>
-                                    <td class="text-right">3</td>
-                                    <td class="text-right">$30.00</td>
+                                    <td>Hard Fall</td>
+                                    <td class="text-center">Hatsoarim 7, Petah Tikva, Israel</td>
+                                    <td class="text-right">Audio sensor</td>
                                 </tr>
                                 <tr>
-                                    <td>2018-09-29 05:57</td>
+                                    <td>2019-01-13 19:10</td>
                                     <td>100392</td>
-                                    <td>Smartwatch 4.0 LTE Wifi</td>
-                                    <td class="text-right">$199.00</td>
-                                    <td class="text-right">6</td>
-                                    <td class="text-right">$1494.00</td>
+                                    <td>Fire</td>
+                                    <td class="text-center">3534 Brooke street, Houston, TX, 77022 USA</td>
+                                    <td class="text-right">Desktop</td>
                                 </tr>
                                 <tr>
-                                    <td>2018-09-24 19:10</td>
+                                    <td>2019-01-10 00:43</td>
                                     <td>100391</td>
-                                    <td>Camera C430W 4k</td>
-                                    <td class="text-right">$699.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$699.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-22 00:43</td>
-                                    <td>100393</td>
-                                    <td>USB 3.0 Cable</td>
-                                    <td class="text-right">$10.00</td>
-                                    <td class="text-right">3</td>
-                                    <td class="text-right">$30.00</td>
+                                    <td>Cry for Help</td>
+                                    <td class="text-center">4792 Ashton Lane, Austin, TX, 78704 USA</td>
+                                    <td class="text-right">Audio Sensor</td>
                                 </tr>
                             </tbody>
                         </table>
