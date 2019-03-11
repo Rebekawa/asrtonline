@@ -469,18 +469,23 @@ input[type=submit]:hover {
     cursor: pointer;
     margin-bottom: 2%;
     margin-top: 2%;
+    border-radius: 5px;
+    color: black;
 }
 
 .high{
-    background-color: #D62828;
+    border: solid 3px #D62828;
+    background-color: rgba(214, 40, 40, 0.222);
 }
 
 .medium{
-    background-color: #F77F00;
+    border: solid 3px #F77F00;
+    background-color: rgba(247, 128, 0, 0.222);
 }
 
 .low{
-    background-color: #FCBF49;
+    border: solid 3px #FCBF49;
+    background-color: rgba(252, 192, 73, 0.222); 
 }
 .selectCaseTypeContainer{
     display: flex;
@@ -671,8 +676,9 @@ select:focus {
 }
 
 .legendDateBox{
-    background: white;
+    background: whitesmoke;
     border-radius: 8px;
-    border: black solid 1px;
+  
+    color: black;
 
 }
