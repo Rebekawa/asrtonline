@@ -473,19 +473,43 @@ input[type=submit]:hover {
     color: black;
 }
 
+.high i{
+
+    color: #D62828;
+    padding: 3px;
+    margin: 3px;
+
+}
+
+.medium i{
+
+    color: #F77F00;
+    padding: 3px;
+    margin: 3px;
+
+}
+
+.low i{
+
+    color: #FCBF49;
+    padding: 3px;
+    margin: 3px;
+
+}
+
 .high{
-    border: solid 3px #D62828;
-    background-color: rgba(214, 40, 40, 0.222);
+    border: solid 2px #D62828;
+
 }
 
 .medium{
-    border: solid 3px #F77F00;
-    background-color: rgba(247, 128, 0, 0.222);
+    border: solid 2px #F77F00;
+
 }
 
 .low{
-    border: solid 3px #FCBF49;
-    background-color: rgba(252, 192, 73, 0.222); 
+    border: solid 2px #FCBF49;
+
 }
 .selectCaseTypeContainer{
     display: flex;
@@ -682,3 +706,10 @@ select:focus {
     color: black;
 
 }
+
+.videoContainer iframe{
+    border: 1px solid black
+
+}
+
+

@@ -88,7 +88,7 @@ $(document).ready(function () {
                         tr = $('<fieldset/>');
                         tr.addClass('box');
                         tr.append("<legend class='legendDateBox date'>" + handleDateFormatting(json_data.date) + "</legend>");
-                        tr.append("<span class='event_type'>" + json_data.event_type + "</span>");
+                        tr.append("<span class='event_type'>" + '<i class="fas fa-square"></i>' + json_data.event_type + "</span>");
                         tr.append("<div class='cust_num'>" + json_data.cust_num + "</div>");
                         tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                         tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
@@ -161,7 +161,7 @@ $(document).ready(function () {
                         tr = $('<fieldset/>');
                         tr.addClass('box');
                         tr.append("<legend class='legendDateBox date'>" + handleDateFormatting(json_data.date) + "</legend>");
-                        tr.append("<span class='event_type'>" + json_data.event_type + "</span>");
+                        tr.append("<span class='event_type'>" + '<i class="fas fa-square"></i>' + json_data.event_type + "</span>");
                         tr.append("<div class='cust_num'>" + json_data.cust_num + "</div>");
                         tr.append("<div class='case_stat'>" + json_data.case_stat + "</div>");
                         tr.append("<div class='case_num'>" + json[i]["pk"] + "</div>");
